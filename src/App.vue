@@ -1,34 +1,34 @@
 <template>
   <div class="app">
-    <p>{{ letters.length }}</p>
-    <!-- <button @click="changeName('zelda')">change name</button> -->
+    <guess-component :guessData="guessData" />
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import LetterData from 'src/types/LetterData';
-import LetterResult from './types/LetterResult';
+import GuessComponent from '@/components/GuessComponent.vue';
+import LetterResult from '@/types/LetterResult';
+import GuessData from './types/GuessData';
 
 export default defineComponent({
   name: 'App',
-  components: {},
-  setup() {
-    const letters = ref<LetterData[]>([
-      {letter: 'A', result: LetterResult.None},
-      {letter: 'B', result: LetterResult.None},
-      {letter: '', result: LetterResult.None},
-      {letter: '', result: LetterResult.None},
-      {letter: '', result: LetterResult.None},
-    ]);
-
-    return { letters }
+  components: { 
+    GuessComponent 
   },
-  methods: {
-    // changeName(name: string) {
-    //   this.name = name
-    // }
-  }
+  setup() {
+    const guessData = ref<GuessData>({
+      typedWord: 'AB',
+      letters: [
+        {letter: 'A', result: LetterResult.None},
+        {letter: 'B', result: LetterResult.None},
+        {letter: '', result: LetterResult.None},
+        {letter: '', result: LetterResult.None},
+        {letter: '', result: LetterResult.None},
+      ]
+    });
+
+    return { guessData }
+  },
 });
 </script>
 
