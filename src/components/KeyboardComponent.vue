@@ -1,24 +1,35 @@
 <template>
-    <div class="keyboard-row">
-        <button class="keyboard-btn" v-for="letter in firstRowLetters"
-            @click="$emit('onLetterPressed', letter)" :key="letter">{{letter}}</button>
+    <div class="parent">
+        <div class="keyboard-row">
+            <el-button class="keyboard-btn" v-for="letter in firstRowLetters"
+                @click="$emit('onLetterPressed', letter)" :key="letter">
+                <div class="keyboard-btn-content">
+                    {{letter}}
+                </div>
+            </el-button>
+        </div>
+        <div class="keyboard-row">
+            <el-button class="keyboard-btn" v-for="letter in secondRowLetters"
+                @click="$emit('onLetterPressed', letter)" :key="letter">{{letter}}</el-button>
+            <el-button class="keyboard-btn back-btn" @click="$emit('onBackPressed')" >Back</el-button>
+        </div>
+        <div class="keyboard-row">
+            <el-button class="keyboard-btn" v-for="letter in thirdRowLetters"
+                @click="$emit('onLetterPressed', letter)" :key="letter">{{letter}}</el-button>
+            <el-button class="keyboard-btn enter-btn" @click="$emit('onEnterPressed')" >Enter</el-button>
+        </div>
     </div>
-    <div class="keyboard-row">
-        <button class="keyboard-btn" v-for="letter in secondRowLetters"
-            @click="$emit('onLetterPressed', letter)" :key="letter">{{letter}}</button>
-    </div>
-    <div class="keyboard-row">
-        <button class="keyboard-btn" v-for="letter in thirdRowLetters"
-            @click="$emit('onLetterPressed', letter)" :key="letter">{{letter}}</button>
-    <button class="keyboard-btn" @click="$emit('onBackPressed')" >Back</button>
-    </div>
-    
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import { ElButton } from 'element-plus';
+import 'element-plus/es/components/button/style/css';
 
 export default defineComponent({
+    components: {
+      ElButton  
+    },
     setup() {
         const firstRowLetters = ['Q','W','E','R','T','Y','U','I','O','P',];
         const secondRowLetters = ['A','S','D','F','G','H','J','K','L',];
@@ -41,27 +52,25 @@ export default defineComponent({
 
     .keyboard-btn {
         padding: 0px;
-        margin: 1px;
+        margin: 0px;
         background: grey;
         color: white;
         border-radius: 2px;
         cursor: pointer;
-    }
-
-    .keyboard-btn > div {
-        width: 40px;
         height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        width: 40px;
+        border-radius: 5px;
     }
 
-    .btn-back > div {
+
+    .back-btn {
         width: 60px;
+        margin-left: 10px;
     }
 
-    .btn-enter > div {
+    .enter-btn {
         width: 80px;
+        margin-left: 10px;
     }
 
     .parent {
