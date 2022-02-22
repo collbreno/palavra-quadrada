@@ -1,33 +1,59 @@
 <template>
   <div class="app">
-    <guess-component :guessData="guessData" />
+    <word-panel :wordController="wordController"/>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import GuessComponent from '@/components/GuessComponent.vue';
 import LetterResult from '@/types/LetterResult';
 import GuessData from './types/GuessData';
+import WordPanel from './components/WordPanel.vue';
+import WordController from './types/WordController';
 
 export default defineComponent({
   name: 'App',
   components: { 
-    GuessComponent 
+    WordPanel,
   },
   setup() {
-    const guessData = ref<GuessData>({
-      typedWord: 'AB',
-      letters: [
-        {letter: 'A', result: LetterResult.None},
-        {letter: 'B', result: LetterResult.None},
-        {letter: '', result: LetterResult.None},
-        {letter: '', result: LetterResult.None},
-        {letter: '', result: LetterResult.None},
+    const wordController = ref<WordController>({
+      correctWord: 'GANSO',
+      guesses: [
+        {
+          typedWord: '', 
+          letters: [
+            {letter: 'A', result: LetterResult.None},
+            {letter: 'B', result: LetterResult.None},
+            {letter: '', result: LetterResult.None},
+            {letter: '', result: LetterResult.None},
+            {letter: '', result: LetterResult.None},
+          ],
+        },
+        {
+          typedWord: '', 
+          letters: [
+            {letter: 'A', result: LetterResult.None},
+            {letter: 'B', result: LetterResult.None},
+            {letter: '', result: LetterResult.None},
+            {letter: '', result: LetterResult.None},
+            {letter: '', result: LetterResult.None},
+          ],
+        },
+        {
+          typedWord: '', 
+          letters: [
+            {letter: 'A', result: LetterResult.None},
+            {letter: 'B', result: LetterResult.None},
+            {letter: '', result: LetterResult.None},
+            {letter: '', result: LetterResult.None},
+            {letter: '', result: LetterResult.None},
+          ],
+        },
       ]
     });
 
-    return { guessData }
+    return { wordController }
   },
 });
 </script>

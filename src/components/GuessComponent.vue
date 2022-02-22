@@ -28,5 +28,6 @@ export default defineComponent({
     .guess {
         display: flex;
         flex-direction: row;
+        margin: 1px;
     }
 </style>
