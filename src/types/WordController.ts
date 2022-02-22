@@ -19,19 +19,29 @@ class WordController {
     }
 
     get current(): GuessData | null {
-        return this._guesses.filter(x => !x.isValidated)[0] ?? null;
+        return this.isFinished 
+            ? null 
+            : this._guesses.filter(x => !x.isValidated)[0] ?? null;
     }
 
     get isFinished(): boolean {
-        return this.current == null;
+        return this._guesses[4].isValidated 
+            || this._guesses.filter(x => x.isCorrect).length != 0;
     }
 
     addLetter(letter: string): void {
-        this.current?.addLetter(letter);
+        if (!this.isFinished)
+            this.current?.addLetter(letter);
     }
 
     removeLetter(): void {
-        this.current?.removeLetter();
+        if (!this.isFinished)
+            this.current?.removeLetter();
+    }
+
+    submit(): void {
+        if (!this.isFinished)
+            this.current?.submit(this.correctWord);
     }
 }
 

@@ -1,3 +1,4 @@
+import validateWord from "@/utils/WordValidator";
 import LetterData from "./LetterData";
 import LetterResult from "./LetterResult";
 
@@ -17,10 +18,12 @@ class GuessData {
         return this._letters;
     }
 
+    get word(): string {
+        return this._letters.reduce((acc, cur) => acc+cur.letter, '');
+    }
+
     get typedWordLength(): number {
-        return this._letters
-            .filter(x => x.letter.length != 0)
-            .length;
+        return this.word.length;
     }
 
     get isCorrect(): boolean {
@@ -46,6 +49,9 @@ class GuessData {
         }
     }
 
+    submit(correctWord: string) {
+        this._letters = validateWord(this.word, correctWord);
+    }
 
 }
 

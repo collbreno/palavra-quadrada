@@ -1,7 +1,10 @@
 <template>
   <div class="app">
     <word-panel :wordController="wordController"/>
-    <keyboard-component @on-letter-pressed="addLetter" @on-back-pressed="removeLetter"/>
+    <keyboard-component 
+      @on-letter-pressed="addLetter" 
+      @on-back-pressed="removeLetter"
+      @on-enter-pressed="submit"/>
   </div>
 </template>
 
@@ -28,7 +31,10 @@ export default defineComponent({
     },
     removeLetter() {
       this.wordController.removeLetter();
-    }
+    },
+    submit() {
+      this.wordController.submit();
+    },
   }
 });
 </script>
