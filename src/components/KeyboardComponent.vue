@@ -1,34 +1,33 @@
 <template>
     <div class="parent">
         <div class="keyboard-row">
-            <el-button class="keyboard-btn" v-for="letter in firstRowLetters"
+            <q-btn :ripple="{early: true}" class="keyboard-btn" v-for="letter in firstRowLetters"
                 @click="$emit('onLetterPressed', letter)" :key="letter">
                 <div class="keyboard-btn-content">
                     {{letter}}
                 </div>
-            </el-button>
+            </q-btn>
         </div>
         <div class="keyboard-row">
-            <el-button class="keyboard-btn" v-for="letter in secondRowLetters"
-                @click="$emit('onLetterPressed', letter)" :key="letter">{{letter}}</el-button>
-            <el-button class="keyboard-btn back-btn" @click="$emit('onBackPressed')" >Back</el-button>
+            <q-btn :ripple="{early: true}" class="keyboard-btn" v-for="letter in secondRowLetters"
+                @click="$emit('onLetterPressed', letter)" :key="letter">{{letter}}</q-btn>
+            <q-btn :ripple="{early: true}" class="keyboard-btn back-btn" @click="$emit('onBackPressed')" >Back</q-btn>
         </div>
         <div class="keyboard-row">
-            <el-button class="keyboard-btn" v-for="letter in thirdRowLetters"
-                @click="$emit('onLetterPressed', letter)" :key="letter">{{letter}}</el-button>
-            <el-button class="keyboard-btn enter-btn" @click="$emit('onEnterPressed')" >Enter</el-button>
+            <q-btn :ripple="{early: true}" class="keyboard-btn" v-for="letter in thirdRowLetters"
+                @click="$emit('onLetterPressed', letter)" :key="letter">{{letter}}</q-btn>
+            <q-btn :ripple="{early: true}" class="keyboard-btn enter-btn" @click="$emit('onEnterPressed')" >Enter</q-btn>
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { ElButton } from 'element-plus';
-import 'element-plus/es/components/button/style/css';
+import { QBtn } from 'quasar'
 
 export default defineComponent({
     components: {
-      ElButton  
+      QBtn,  
     },
     setup() {
         const firstRowLetters = ['Q','W','E','R','T','Y','U','I','O','P',];
@@ -52,7 +51,7 @@ export default defineComponent({
 
     .keyboard-btn {
         padding: 0px;
-        margin: 0px;
+        margin: 1px;
         background: grey;
         color: white;
         border-radius: 2px;
