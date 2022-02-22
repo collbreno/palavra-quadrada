@@ -6,8 +6,6 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import LetterResult from '@/types/LetterResult';
-import GuessData from './types/GuessData';
 import WordPanel from './components/WordPanel.vue';
 import WordController from './types/WordController';
 
@@ -17,44 +15,18 @@ export default defineComponent({
     WordPanel,
   },
   setup() {
-    const wordController = ref<WordController>({
-      correctWord: 'GANSO',
-      guesses: [
-        {
-          typedWord: '', 
-          letters: [
-            {letter: 'A', result: LetterResult.None},
-            {letter: 'B', result: LetterResult.None},
-            {letter: '', result: LetterResult.None},
-            {letter: '', result: LetterResult.None},
-            {letter: '', result: LetterResult.None},
-          ],
-        },
-        {
-          typedWord: '', 
-          letters: [
-            {letter: 'A', result: LetterResult.None},
-            {letter: 'B', result: LetterResult.None},
-            {letter: '', result: LetterResult.None},
-            {letter: '', result: LetterResult.None},
-            {letter: '', result: LetterResult.None},
-          ],
-        },
-        {
-          typedWord: '', 
-          letters: [
-            {letter: 'A', result: LetterResult.None},
-            {letter: 'B', result: LetterResult.None},
-            {letter: '', result: LetterResult.None},
-            {letter: '', result: LetterResult.None},
-            {letter: '', result: LetterResult.None},
-          ],
-        },
-      ]
-    });
+    const wordController = ref<WordController>(new WordController('GANSO'))
 
     return { wordController }
   },
+  methods: {
+    addLetter(letter: string) {
+      this.wordController.addLetter(letter);
+    },
+    removeLetter() {
+      this.wordController.removeLetter();
+    }
+  }
 });
 </script>
 

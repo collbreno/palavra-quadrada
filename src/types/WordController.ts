@@ -7,11 +7,15 @@ class WordController {
     constructor(correctWord: string) {
         this.correctWord = correctWord;
         this._guesses = [];
-        for (var i = 0; i < 5; i++) {
+        for (let i = 0; i < 9; i++) {
             this._guesses.push(
                 new GuessData()
             )
         }
+    }
+
+    get guesses(): GuessData[] {
+        return this._guesses;
     }
 
     get current(): GuessData | null {

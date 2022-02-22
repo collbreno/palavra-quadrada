@@ -6,7 +6,7 @@ class GuessData {
 
     constructor() {
         this._letters = [];
-        for (var i = 0; i < 9; i++) {
+        for (let i = 0; i < 5; i++) {
             this._letters.push(
                 new LetterData('', LetterResult.None)
             )
@@ -36,7 +36,7 @@ class GuessData {
 
     removeLetter(): void {
         if (this.typedWordLength > 0) {
-            this._letters[this.typedWordLength] = new LetterData('', LetterResult.Typing);
+            this._letters[this.typedWordLength-1] = new LetterData('', LetterResult.Typing);
         }
     }
 
