@@ -1,6 +1,7 @@
 <template>
   <div class="app">
     <word-panel :wordController="wordController"/>
+    <keyboard-component @on-letter-pressed="addLetter" @on-back-pressed="removeLetter"/>
   </div>
 </template>
 
@@ -8,11 +9,13 @@
 import { defineComponent, ref } from 'vue';
 import WordPanel from './components/WordPanel.vue';
 import WordController from './types/WordController';
+import KeyboardComponent from './components/KeyboardComponent.vue';
 
 export default defineComponent({
   name: 'App',
   components: { 
     WordPanel,
+    KeyboardComponent,
   },
   setup() {
     const wordController = ref<WordController>(new WordController('GANSO'))
