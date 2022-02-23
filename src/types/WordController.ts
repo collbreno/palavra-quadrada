@@ -27,7 +27,7 @@ class WordController {
     }
 
     get isFinished(): boolean {
-        return this._guesses[4].isValidated 
+        return this._guesses[this._guesses.length-1].isValidated 
             || this._guesses.filter(x => x.isCorrect).length != 0;
     }
 
