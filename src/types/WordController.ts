@@ -1,4 +1,5 @@
 import GuessData from "./GuessData";
+import LetterResult from "./LetterResult";
 
 class WordController {
     _guesses: GuessData[];
@@ -12,6 +13,7 @@ class WordController {
                 new GuessData()
             )
         }
+        this._guesses[0].setResult(LetterResult.Typing)
     }
 
     get guesses(): GuessData[] {
@@ -40,8 +42,10 @@ class WordController {
     }
 
     submit(): void {
-        if (!this.isFinished)
+        if (!this.isFinished){
             this.current?.submit(this.correctWord);
+            this.current?.setResult(LetterResult.Typing)
+        }
     }
 }
 

@@ -7,10 +7,10 @@ export default function getColor(result: LetterResult) {
         case LetterResult.WrongSpot:
             return '#FFAB00';
         case LetterResult.NotInWord:
-            return '#000000';
-        case LetterResult.Typing:
-            return '#616161';
-        case LetterResult.None:
             return '#212121';
+        case LetterResult.Typing:
+            return '#424242';
+        case LetterResult.None:
+            return '#000000';
     }
 }

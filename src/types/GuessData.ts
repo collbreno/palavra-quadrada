@@ -5,6 +5,7 @@ import LetterResult from "./LetterResult";
 class GuessData {
     _letters: LetterData[];
 
+
     constructor() {
         this._letters = [];
         for (let i = 0; i < 5; i++) {
@@ -51,6 +52,12 @@ class GuessData {
 
     submit(correctWord: string) {
         this._letters = validateWord(this.word, correctWord);
+    }
+
+    setResult(result: LetterResult) {
+        for(let i = 0; i < 5; i++) {
+            this._letters[i] = new LetterData(this.letters[i].letter, result)
+        }
     }
 
 }
