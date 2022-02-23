@@ -1,10 +1,16 @@
 import validWords from "@/assets/validWords";
 import LetterData from "@/types/LetterData";
 import LetterResult from "@/types/LetterResult";
+import { InvalidWordLength, WordNotInList } from "@/utils/Exceptions";
 
 export default function validateWord(guess: string, correctWord: string): LetterData[] {
-    // TODO: throw exceptions
-    if (guess == correctWord) {
+    if (guess.length != 5) {
+        throw new InvalidWordLength();
+    }
+    else if (!validWords.includes(guess)) {
+        throw new WordNotInList();
+    }
+    else if (guess == correctWord) {
         const array: LetterData[] = [];
         for (let i = 0; i < 5; i++) 
             array.push(new LetterData(guess[i], LetterResult.CorrectSpot));
