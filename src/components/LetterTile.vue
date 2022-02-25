@@ -1,26 +1,21 @@
 <template>
-    <div class="letter-tile" :style="myStyle">
-        <span class="letter-text">{{ letterData.letter }}</span>
+    <div class="letter-tile" :style="{backgroundColor: color}">
+        <span class="letter-text">{{ letter }}</span>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import LetterData from '@/types/LetterData';
-import getColor from '@/utils/ColorUtils';
 
 export default defineComponent({
-    data() {
-        return {
-            myStyle: {
-                backgroundColor: getColor(this.letterData.result),
-            }
-        }
-    },
     props: {
-        letterData: {
+        letter: {
             required: true,
-            type: Object as PropType<LetterData>
+            type: Object as PropType<string>
+        },
+        color: {
+            required: true,
+            type: Object as PropType<string>,
         }
     }
 })

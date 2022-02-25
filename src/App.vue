@@ -1,6 +1,6 @@
 <template>
   <div class="app" >
-    <word-panel :wordController="wordController"/>
+    <square-panel :squareController="squareController"/>
     <keyboard-component 
       @on-letter-pressed="addLetter" 
       @on-back-pressed="removeLetter"
@@ -10,23 +10,23 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-import WordPanel from './components/WordPanel.vue';
-import WordController from './types/WordController';
+import SquareController from './types/SquareController';
 import KeyboardComponent from './components/KeyboardComponent.vue';
+import SquarePanel from './components/SquarePanel.vue';
 import validLetters from './assets/validLetters';
 import { useQuasar } from 'quasar';
 
 export default defineComponent({
   name: 'App',
   components: { 
-    WordPanel,
+    SquarePanel,
     KeyboardComponent,
   },
   setup() {
     const $q = useQuasar();
-    const wordController = ref<WordController>(new WordController('GANSO'))
+    const squareController = ref<SquareController>(new SquareController(['RIRAM', 'ALISO', 'SURTA', 'ADERI', 'SOMOS']))
 
-    return { wordController }
+    return { squareController, $q }
   },
   created() {
     window.addEventListener('keydown', this.keyPressHandler);
@@ -36,14 +36,14 @@ export default defineComponent({
   },
   methods: {
     addLetter(letter: string) {
-      this.wordController.addLetter(letter);
+      this.squareController.addLetter(letter);
     },
     removeLetter() {
-      this.wordController.removeLetter();
+      this.squareController.removeLetter();
     },
     submit() {
       try {
-        this.wordController.submit();
+        this.squareController.submit();
       } catch (error: any) {
         this.$q.notify(error.message)
       }

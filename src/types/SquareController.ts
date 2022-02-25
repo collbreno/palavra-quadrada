@@ -25,6 +25,10 @@ class SquareController {
         return this._guesses;
     }
 
+    get guessData(): GuessData {
+        return this._guessData;
+    }
+
     get isCorrect(): boolean {
         return this._words.every(x => x.isCorrect)
     }

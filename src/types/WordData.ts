@@ -18,20 +18,30 @@ class WordData {
         return this._greenLetters.every(x => x != '')
     }
 
+    get yellowLettersAsString(): string {
+        return this._yellowLetters.reduce((acc, cur) => acc+''+cur, '');
+    }
+
     submitGuess(guess: string) {
         let aux = this.correctWord;
         for (let i = 0; i < 5; i++) {
             if (aux[i] == guess[i]) {
-                setCharAt(aux, '*', i);
+                this._greenLetters[i] = aux[i];
+                aux = setCharAt(aux, '*', i);
             }
         }
 
-        let newYellowLetters: string[] = [];
-        for (let letter in [...this._yellowLetters, ...guess.split('')]) {
+        const newYellowLetters: string[] = [];
+        const allLeters = [...this._yellowLetters, ...guess.split('')]
+        for (let i = 0; i < allLeters.length; i++) {
+            const letter = allLeters[i]
+            console.log(letter)
             if (!newYellowLetters.includes(letter) && aux.includes(letter)) {
                 newYellowLetters.push(letter)
             }
         }
+        console.log(newYellowLetters)
+        this._yellowLetters = newYellowLetters;
     }
 }
 
