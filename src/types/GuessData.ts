@@ -1,62 +1,53 @@
-import validateWord from "@/utils/WordValidator";
-import LetterData from "./LetterData";
-import LetterResult from "./LetterResult";
+import validWords from "@/assets/validWords";
+import { InvalidWordLength, WordNotInList } from "@/utils/Exceptions";
 
 class GuessData {
-    _letters: LetterData[];
-
+    _typedLetters: string[];
 
     constructor() {
-        this._letters = [];
+        this._typedLetters = [];
         for (let i = 0; i < 5; i++) {
-            this._letters.push(
-                new LetterData('', LetterResult.None)
-            )
+            this._typedLetters.push('')
         }
     }
 
-    get letters(): LetterData[] {
-        return this._letters;
+    get letters(): string[] {
+        return this._typedLetters;
     }
 
-    get word(): string {
-        return this._letters.reduce((acc, cur) => acc+cur.letter, '');
+    get typedWord(): string {
+        return this._typedLetters.reduce((acc, cur) => acc+cur, '');
     }
 
     get typedWordLength(): number {
-        return this.word.length;
-    }
-
-    get isCorrect(): boolean {
-        return this._letters
-            .every(x => x.result == LetterResult.CorrectSpot);
-    }
-
-    get isValidated(): boolean {
-        return this._letters
-            .every(x => x.result != LetterResult.None 
-                && x.result != LetterResult.Typing);
+        return this.typedWord.length;
     }
 
     removeLetter(): void {
         if (this.typedWordLength > 0) {
-            this._letters[this.typedWordLength-1] = new LetterData('', LetterResult.Typing);
+            this._typedLetters[this.typedWordLength-1] = '';
         }
     }
 
     addLetter(letter: string): void {
         if (this.typedWordLength < 5) {
-            this._letters[this.typedWordLength] = new LetterData(letter, LetterResult.Typing);
+            this._typedLetters[this.typedWordLength] = letter;
         }
     }
 
-    submit(correctWord: string) {
-        this._letters = validateWord(this.word, correctWord);
+    submit(): string {
+        if (this.typedWordLength < 5) {
+            throw new InvalidWordLength();
+        }
+        if (!validWords.includes(this.typedWord)) {
+            throw new WordNotInList();
+        }
+        return this.typedWord;
     }
 
-    setResult(result: LetterResult) {
-        for(let i = 0; i < 5; i++) {
-            this._letters[i] = new LetterData(this.letters[i].letter, result)
+    clear() {
+        for (let i = 0; i < 5; i++) {
+            this._typedLetters[i] = '';
         }
     }
 

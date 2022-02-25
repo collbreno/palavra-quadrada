@@ -34,3 +34,5 @@ class WordData {
         }
     }
 }
+
+export default WordData
