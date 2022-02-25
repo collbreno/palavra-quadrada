@@ -47,6 +47,13 @@ export default defineComponent({
     .keyboard-row {
         display: flex;
         flex-direction: row;
+        width: 570px;
+    }
+
+    @media screen and (max-width: 570px){
+        .keyboard-row {
+            width: 100%;
+        }
     }
 
     .keyboard-btn {
@@ -56,8 +63,7 @@ export default defineComponent({
         color: white;
         border-radius: 2px;
         cursor: pointer;
-        height: 60px;
-        width: 40px;
+        flex: 1;
         border-radius: 5px;
     }
 
@@ -65,16 +71,21 @@ export default defineComponent({
     .back-btn {
         width: 60px;
         margin-left: 10px;
+        flex: 1.5;
     }
 
     .enter-btn {
         width: 80px;
         margin-left: 10px;
+        flex: 1.5;
     }
 
     .parent {
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
     }
 </style>
