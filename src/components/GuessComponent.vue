@@ -2,7 +2,9 @@
     <div class="guess">
         <letter-tile v-for="letter in letters"
             :color="'#424242'" 
-            :key="letter" :letter="letter"/>
+            v-bind:key="`guess-letter-${letter}`" :letter="letter"/>
+        <letter-tile 
+            :letter="''"/>
     </div>
 
 </template>
@@ -28,6 +30,5 @@ export default defineComponent({
     .guess {
         display: flex;
         flex-direction: row;
-        margin: 1px;
     }
 </style>

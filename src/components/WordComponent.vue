@@ -1,9 +1,9 @@
 <template>
     <div class="word">
-        <letter-tile v-for="letter in wordData._greenLetters"
+        <letter-tile class="letter-tile" v-for="(letter, index) in wordData._greenLetters"
             :color="letter == '' ? '#212121' : '#388E3C'" 
-            :key="letter" :letter="letter"/>
-        <letter-tile 
+            v-bind:key="`letter-${rowIndex}${index}`" :letter="letter"/>
+        <letter-tile class="letter-tile"
             :color="'#FFAB00'"
             :letter="wordData.yellowLettersAsString"/>
     </div>
@@ -22,7 +22,11 @@ export default defineComponent({
         wordData: {
             required: true,
             type: Object as PropType<WordData>
-        }
+        },
+        rowIndex: {
+            required: true,
+            type: Object as PropType<number>,
+        },
     },
 })
 </script>
@@ -31,6 +35,5 @@ export default defineComponent({
     .word {
         display: flex;
         flex-direction: row;
-        margin: 1px;
     }
 </style>

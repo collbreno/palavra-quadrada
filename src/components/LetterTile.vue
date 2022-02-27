@@ -17,7 +17,7 @@ export default defineComponent({
             required: true,
             type: Object as PropType<string>,
         }
-    }
+    },
 })
 </script>
 

@@ -2,8 +2,10 @@
     <div class="panel">
         <guess-component :letters="squareController.guessData.letters" />
         
-        <word-component v-for="word in squareController.words"  
-            :key="word" :wordData="word"/>
+        <word-component v-for="(word, index) in squareController.words"
+            :rowIndex="index"
+            :wordData="word"
+            v-bind:key="`word-${index}`" />
     </div>
 </template>
 
@@ -30,6 +32,10 @@ export default defineComponent({
 
 <style scoped>
     .panel {
+        width: 100%;
         margin: 10px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 </style>

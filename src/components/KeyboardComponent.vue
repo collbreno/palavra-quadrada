@@ -69,13 +69,11 @@ export default defineComponent({
 
 
     .back-btn {
-        width: 60px;
         margin-left: 10px;
         flex: 1.5;
     }
 
     .enter-btn {
-        width: 80px;
         margin-left: 10px;
         flex: 1.5;
     }
