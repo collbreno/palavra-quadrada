@@ -1,8 +1,8 @@
 <template>
     <div class="guess">
-        <letter-tile v-for="letter in letters"
+        <letter-tile v-for="(letter, index) in letters"
             :color="'#424242'" 
-            v-bind:key="`guess-letter-${letter}`" :letter="letter"/>
+            v-bind:key="`guess-letter-${index}`" :letter="letter"/>
         <letter-tile 
             :letter="''"/>
     </div>

@@ -23,10 +23,10 @@ export default defineComponent({
     KeyboardComponent,
   },
   setup() {
-    const $q = useQuasar();
+    const q = useQuasar();
     const squareController = ref<SquareController>(new SquareController(['RIRAM', 'ALISO', 'SURTA', 'ADERI', 'SOMOS']))
 
-    return { squareController, $q }
+    return { squareController, q }
   },
   created() {
     window.addEventListener('keydown', this.keyPressHandler);
@@ -45,11 +45,10 @@ export default defineComponent({
       try {
         this.squareController.submit();
       } catch (error: any) {
-        this.$q.notify(error.message)
+        this.q.notify(error.message)
       }
     },
     keyPressHandler(event: KeyboardEvent) {
-      console.log(event)
       if (event.key.toLowerCase() == 'enter') {
         this.submit();
       }

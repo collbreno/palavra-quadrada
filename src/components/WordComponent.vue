@@ -25,7 +25,7 @@ export default defineComponent({
         },
         rowIndex: {
             required: true,
-            type: Object as PropType<number>,
+            type: Number,
         },
     },
 })
@@ -35,5 +35,5 @@ export default defineComponent({
     .word {
         display: flex;
         flex-direction: row;
-    }
+    }    
 </style>

@@ -35,12 +35,10 @@ class WordData {
         const allLeters = [...this._yellowLetters, ...guess.split('')]
         for (let i = 0; i < allLeters.length; i++) {
             const letter = allLeters[i]
-            console.log(letter)
             if (!newYellowLetters.includes(letter) && aux.includes(letter)) {
                 newYellowLetters.push(letter)
             }
         }
-        console.log(newYellowLetters)
         this._yellowLetters = newYellowLetters;
     }
 }

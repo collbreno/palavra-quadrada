@@ -11,11 +11,11 @@ export default defineComponent({
     props: {
         letter: {
             required: true,
-            type: Object as PropType<string>
+            type: String,
         },
         color: {
             required: true,
-            type: Object as PropType<string>,
+            type: String,
         }
     },
 })
