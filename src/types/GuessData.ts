@@ -1,5 +1,6 @@
 import validWords from "@/assets/validWords";
 import { InvalidWordLength, WordNotInList } from "@/utils/Exceptions";
+import { removeAccents } from "@/utils/RemoveAccents";
 
 class GuessData {
     _typedLetters: string[];
@@ -39,15 +40,26 @@ class GuessData {
         if (this.typedWordLength < 5) {
             throw new InvalidWordLength();
         }
-        if (!validWords.includes(this.typedWord)) {
+        const index = validWords.map(x => removeAccents(x)).indexOf(this.typedWord)
+        if (index < 0) {
             throw new WordNotInList();
         }
-        return this.typedWord;
+        const validWord = validWords[index];
+        this.setTypedWord(validWord);
+        return validWord;
     }
 
+    
     clear() {
         for (let i = 0; i < 5; i++) {
             this._typedLetters[i] = '';
+        }
+    }
+
+    private setTypedWord(word: string) {
+        const list = word.split('');
+        for (let i = 0; i < 5; i++) {
+            this._typedLetters[i] = list[i];
         }
     }
 
