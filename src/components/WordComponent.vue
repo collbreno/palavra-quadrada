@@ -1,11 +1,20 @@
 <template>
     <div class="word">
-        <letter-tile class="letter-tile" v-for="(letter, index) in wordData._greenLetters"
+        <letter-tile 
+            class="letter-tile" v-for="(letter, index) in wordData._greenLetters"
             :color="letter == '' ? '#212121' : '#388E3C'" 
-            v-bind:key="`letter-${rowIndex}${index}`" :letter="letter"/>
+            v-bind:key="`letter-${rowIndex}${index}`" :letter="letter"
+            :style="{
+                transform: `scale(${lettersScale[index]})`,
+                transition: 'transform 100ms',
+            }"/>
         <letter-tile class="letter-tile"
             :color="'#FFAB00'"
-            :letter="wordData.yellowLettersAsString"/>
+            :letter="wordData.yellowLettersAsString"
+            :style="{
+                transform: `scale(${lettersScale[5]})`,
+                transition: 'transform 100ms',
+            }"/>
     </div>
 </template>
 
@@ -27,6 +36,10 @@ export default defineComponent({
             required: true,
             type: Number,
         },
+        lettersScale: {
+            required: true,
+            type: Object as PropType<number[]>
+        }
     },
 })
 </script>

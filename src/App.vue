@@ -24,7 +24,13 @@ export default defineComponent({
   },
   setup() {
     const q = useQuasar();
-    const squareController = ref<SquareController>(new SquareController(['RIRAM', 'ALISO', 'SURTA', 'ADERI', 'SOMOS']))
+    const squareController = ref<SquareController>(new SquareController([
+        'RIRAM', 
+        'ALISO', 
+        'SURTA', 
+        'ADERI', 
+        'SOMOS'
+    ]))
 
     return { squareController, q }
   },

@@ -5,6 +5,7 @@
         <word-component v-for="(word, index) in squareController.words"
             :rowIndex="index"
             :wordData="word"
+            :lettersScale="squareController.lettersScale[index]"
             v-bind:key="`word-${index}`" />
     </div>
 </template>

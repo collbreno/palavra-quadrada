@@ -5,15 +5,21 @@ class SquareController {
     private _words: WordData[];
     private _guesses: string[];
     private _guessData: GuessData;
+    lettersScale: number[][];
 
     constructor(correctWords: string[]) {
         this._guesses = [];
         this._guessData = new GuessData();
         this._words = [];
+        this.lettersScale = [];
         for (let i = 0; i < 5; i++) {
             this._words.push(
                 new WordData(correctWords[i])
             )
+            this.lettersScale[i] = [];
+            for (let j = 0; j < 6; j++) {
+                this.lettersScale[i][j] = 1;
+            }
         }
     }
 
@@ -44,7 +50,17 @@ class SquareController {
     submit(): void {
         const guess = this._guessData.submit();
         for (let i = 0; i < 5; i++) {
-            this._words[i].submitGuess(guess);
+            setTimeout(() => {
+                for (let j = 0; j < 6; j++) {
+                    this.lettersScale[i][j] = 1.05;
+                }
+                this._words[i].submitGuess(guess);
+                setTimeout(() => {
+                    for (let j = 0; j < 6; j++) {
+                        this.lettersScale[i][j] = 1.0;
+                    }
+                }, 100);
+            }, 100*i*2);
         }
         this._guessData.clear();
     }
