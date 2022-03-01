@@ -26,6 +26,11 @@ import { defineComponent } from 'vue'
 import { QBtn } from 'quasar'
 
 export default defineComponent({
+    emits: [
+        'onBackPressed',
+        'onLetterPressed',
+        'onEnterPressed',
+    ],
     components: {
       QBtn,  
     },

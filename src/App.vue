@@ -1,12 +1,16 @@
 <template>
   <div class="app" >
+    <game-toolbar 
+      @onChartPressed="showStats"
+      @onHelpPressed="showHelp"
+      @onSettingsPressed="showSettings"/>
     <square-panel 
       :squareController="squareController"
-      @on-guess-count-pressed="showGuesses"/>
+      @onGuessCountPressed="showGuesses"/>
     <keyboard-component 
-      @on-letter-pressed="addLetter" 
-      @on-back-pressed="removeLetter"
-      @on-enter-pressed="submit"/>
+      @onLetterPressed="addLetter" 
+      @onBackPressed="removeLetter"
+      @onEnterPressed="submit"/>
   </div>
 </template>
 
@@ -17,12 +21,14 @@ import KeyboardComponent from './components/KeyboardComponent.vue';
 import SquarePanel from './components/SquarePanel.vue';
 import validLetters from './assets/validLetters';
 import GuessesList from './components/GuessesDialog.vue';
+import GameToolbar from './components/GameToolbar.vue';
 
 export default defineComponent({
   name: 'App',
   components: { 
     SquarePanel,
     KeyboardComponent,
+    GameToolbar,
   },
   setup() {
     const squareController = ref<SquareController>(new SquareController([
@@ -79,6 +85,18 @@ export default defineComponent({
         this.$q.notify('Ainda não há nenhum chute');
       }
       
+    },
+    showHelp() {
+      //TODO: implement
+      this.$q.notify('Ainda não implementado');
+    },
+    showStats() {
+      //TODO: implement
+      this.$q.notify('Ainda não implementado');
+    },
+    showSettings() {
+      //TODO: implement
+      this.$q.notify('Ainda não implementado');
     },
   }
 });

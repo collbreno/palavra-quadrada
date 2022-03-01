@@ -8,7 +8,6 @@ import {
   Dialog,
 } from 'quasar'
 
-// To be used on app.use(Quasar, { ... })
 export default {
   plugins: {
     Notify,
@@ -21,6 +20,7 @@ export default {
       textColor: 'white',
       timeout: 500,
       position: 'top',
+      group: false,
     }
   }
 }

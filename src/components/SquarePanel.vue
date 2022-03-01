@@ -24,6 +24,7 @@ import GuessCount from '@/components/GuessCount.vue';
 
 
 export default defineComponent({
+    emits: [ 'onGuessCountPressed' ],
     components: {
         GuessComponent,
         WordComponent,
