@@ -25,7 +25,7 @@ class WordData {
     submitGuess(guess: string) {
         let aux = this.correctWord;
         for (let i = 0; i < 5; i++) {
-            if (aux[i] == guess[i]) {
+            if (aux[i] == guess[i] || this._greenLetters[i] == aux[i]) {
                 this._greenLetters[i] = aux[i];
                 aux = setCharAt(aux, '*', i);
             }
