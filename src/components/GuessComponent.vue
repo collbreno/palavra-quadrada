@@ -1,10 +1,8 @@
 <template>
-    <div class="guess">
+    <div class="row">
         <letter-tile v-for="(letter, index) in letters"
             :color="'#424242'" 
             v-bind:key="`guess-letter-${index}`" :letter="letter"/>
-        <letter-tile 
-            :letter="''"/>
     </div>
 
 </template>
@@ -25,10 +23,3 @@ export default defineComponent({
     }
 })
 </script>
-
-<style scoped>
-    .guess {
-        display: flex;
-        flex-direction: row;
-    }
-</style>

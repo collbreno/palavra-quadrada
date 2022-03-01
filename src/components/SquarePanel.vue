@@ -1,6 +1,11 @@
 <template>
     <div class="panel">
-        <guess-component :letters="squareController.guessData.letters" />
+        <div class="row">
+            <guess-component :letters="squareController.guessData.letters" />
+            <guess-count 
+                @click="$emit('onGuessCountPressed')"
+                :count="squareController.guesses.length"/>
+        </div>
         
         <word-component v-for="(word, index) in squareController.words"
             :rowIndex="index"
@@ -15,12 +20,14 @@ import { defineComponent, PropType } from 'vue'
 import SquareController from '@/types/SquareController';
 import GuessComponent from '@/components/GuessComponent.vue';
 import WordComponent from '@/components/WordComponent.vue';
+import GuessCount from '@/components/GuessCount.vue';
 
 
 export default defineComponent({
     components: {
         GuessComponent,
         WordComponent,
+        GuessCount,
     },
     props: {
         squareController: {
@@ -34,7 +41,7 @@ export default defineComponent({
 <style scoped>
     .panel {
         width: 100%;
-        margin: 10px;
+        padding: 10px;
         display: flex;
         flex-direction: column;
         align-items: center;

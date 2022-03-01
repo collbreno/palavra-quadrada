@@ -1,6 +1,6 @@
 <template>
-    <div class="letter-tile" :style="{backgroundColor: color}">
-        <span class="letter-text">{{ letter }}</span>
+    <div class="guess-count">
+        <span class="count-text">{{ count }}</span>
     </div>
 </template>
 
@@ -9,22 +9,19 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
     props: {
-        letter: {
+        count: {
             required: true,
-            type: String,
+            type: Number,
         },
-        color: {
-            required: true,
-            type: String,
-        }
     },
 })
 </script>
 
 
 <style scoped>
-    .letter-tile {
-        background: grey;
+    .guess-count {
+        background: #607D8B;
+        cursor: pointer;
         display: flex;
         width: 50px;
         height: 50px;
@@ -34,7 +31,7 @@ export default defineComponent({
         margin: 1px;
     }
 
-    .letter-text {
+    .count-text {
         font-size: 22px;
         margin: auto;
         color: white;

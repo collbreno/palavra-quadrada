@@ -3,12 +3,12 @@ import WordData from "./WordData";
 
 class SquareController {
     private _words: WordData[];
-    private _guesses: string[];
+    guesses: string[];
     private _guessData: GuessData;
     lettersScale: number[][];
 
     constructor(correctWords: string[]) {
-        this._guesses = [];
+        this.guesses = [];
         this._guessData = new GuessData();
         this._words = [];
         this.lettersScale = [];
@@ -25,10 +25,6 @@ class SquareController {
 
     get words(): WordData[] {
         return this._words;
-    }
-
-    get guesses(): string[] {
-        return this._guesses;
     }
 
     get guessData(): GuessData {
@@ -62,7 +58,10 @@ class SquareController {
                 }, 100);
             }, 100*i*2);
         }
-        this._guessData.clear();
+        setTimeout(() => {
+            this.guesses.push(guess)
+            this._guessData.clear();
+        }, 100*2*5);
     }
 }
 

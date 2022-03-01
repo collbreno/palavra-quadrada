@@ -1,6 +1,8 @@
 <template>
   <div class="app" >
-    <square-panel :squareController="squareController"/>
+    <square-panel 
+      :squareController="squareController"
+      @on-guess-count-pressed="showGuesses"/>
     <keyboard-component 
       @on-letter-pressed="addLetter" 
       @on-back-pressed="removeLetter"
@@ -14,7 +16,7 @@ import SquareController from './types/SquareController';
 import KeyboardComponent from './components/KeyboardComponent.vue';
 import SquarePanel from './components/SquarePanel.vue';
 import validLetters from './assets/validLetters';
-import { useQuasar } from 'quasar';
+import GuessesList from './components/GuessesList.vue';
 
 export default defineComponent({
   name: 'App',
@@ -23,7 +25,6 @@ export default defineComponent({
     KeyboardComponent,
   },
   setup() {
-    const q = useQuasar();
     const squareController = ref<SquareController>(new SquareController([
         'RIRAM', 
         'ALISO', 
@@ -32,7 +33,7 @@ export default defineComponent({
         'SOMOS'
     ]))
 
-    return { squareController, q }
+    return { squareController }
   },
   created() {
     window.addEventListener('keydown', this.keyPressHandler);
@@ -51,7 +52,7 @@ export default defineComponent({
       try {
         this.squareController.submit();
       } catch (error: any) {
-        this.q.notify(error.message)
+        this.$q.notify(error.message)
       }
     },
     keyPressHandler(event: KeyboardEvent) {
@@ -64,7 +65,21 @@ export default defineComponent({
       else if (event.key && validLetters.includes(event.key)) {
         this.addLetter((event.key as string).toUpperCase())
       }
-    }
+    },
+    showGuesses() {
+      if (this.squareController.guesses.length > 0) {
+        this.$q.dialog({
+          component: GuessesList,
+          componentProps: {
+            guesses: this.squareController.guesses,
+          },
+        })
+      }
+      else {
+        this.$q.notify('Ainda não há nenhum chute');
+      }
+      
+    },
   }
 });
 </script>
