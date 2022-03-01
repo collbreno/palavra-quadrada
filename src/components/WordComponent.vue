@@ -8,13 +8,7 @@
                 transform: `scale(${lettersScale[index]})`,
                 transition: 'transform 100ms',
             }"/>
-        <letter-tile class="letter-tile"
-            :color="'#FFAB00'"
-            :letter="wordData.yellowLettersAsString"
-            :style="{
-                transform: `scale(${lettersScale[5]})`,
-                transition: 'transform 100ms',
-            }"/>
+        <yellow-letters :letters="wordData._yellowLetters"/>
     </div>
 </template>
 
@@ -22,10 +16,12 @@
 import { defineComponent, PropType } from 'vue'
 import LetterTile from '@/components/LetterTile.vue';
 import WordData from '@/types/WordData';
+import YellowLetters from './YellowLetters.vue';
 
 export default defineComponent({
     components: {
         LetterTile,
+        YellowLetters,
     },
     props: {
         wordData: {

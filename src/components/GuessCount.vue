@@ -23,17 +23,22 @@ export default defineComponent({
         background: #607D8B;
         cursor: pointer;
         display: flex;
+        flex-direction: column;
         width: 50px;
         height: 50px;
         border-radius: 5px;
         justify-content: center;
+        align-items: center;
+        justify-items: center;
         align-content: center;
         margin: 1px;
     }
 
     .count-text {
-        font-size: 22px;
-        margin: auto;
+        font-size: 16px;
+        font-weight: 700;
         color: white;
+        margin: 0px;
+        padding: 0px;
     }
 </style>

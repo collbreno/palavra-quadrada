@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <letter-tile
-            class="letter"
+            class="letter-tile"
             v-for="(letter, index) in word.split('')" 
             :key="`guess-list-${guessIndex}${index}`" 
             :letter="letter"
@@ -31,9 +31,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
-    .letter {
+    .letter-tile {
         width: 40px;
         height: 40px;
         font-size: 1px;
+        margin: 0.5px;
     }
 </style>
