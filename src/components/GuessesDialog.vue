@@ -1,17 +1,17 @@
 <template>
-    <q-dialog position="bottom" ref="dialogRef" @hide=onDialogHide>
+    <q-dialog position="bottom" @hide=onDialogHide ref="dialogRef">
         <q-card class="q-dialog-plugin">
             <div class="title">
                 <span class="title-text">
                     Chutes
                 </span>
+                <q-btn @click="hide" flat icon="close"/>
             </div>
             <div class="content">
-                <div class="row" v-for="(guess, i) in guesses" :key="guess">
-                    <letter-tile 
-                        v-for="(letter, j) in guess.split('')" :key="`guess-list-${i}${j}`" 
-                        :letter="letter"
-                        :color="'#263238'"/>
+                <div class="row" v-for="(guess, index) in guesses" :key="guess">
+                    <guess-list-item 
+                        :guessIndex="index"
+                        :word="guess"/>
                 </div>    
             </div>
         </q-card>
@@ -20,14 +20,15 @@
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import { QDialog, QCard, useDialogPluginComponent } from 'quasar';
-import LetterTile from './LetterTile.vue';
+import { QDialog, QCard, QBtn, useDialogPluginComponent } from 'quasar';
+import GuessListItem from './GuessListItem.vue';
 
 export default defineComponent({
     components: {
         QDialog,
         QCard,
-        LetterTile,
+        GuessListItem,
+        QBtn,
     },
     emits: [
         ...useDialogPluginComponent.emits,
@@ -41,6 +42,11 @@ export default defineComponent({
             required: true,
             type: Object as PropType<string[]>,
         }
+    },
+    methods: {
+        hide() {
+            this.dialogRef?.hide();
+        }
     }
 })
 </script>
@@ -48,7 +54,11 @@ export default defineComponent({
 <style scoped>
     .title {
         margin-left: 24px;
+        margin-right: 24px;
         margin-top: 16px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
     }
 
     .title-text {

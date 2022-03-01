@@ -16,7 +16,7 @@ import SquareController from './types/SquareController';
 import KeyboardComponent from './components/KeyboardComponent.vue';
 import SquarePanel from './components/SquarePanel.vue';
 import validLetters from './assets/validLetters';
-import GuessesList from './components/GuessesList.vue';
+import GuessesList from './components/GuessesDialog.vue';
 
 export default defineComponent({
   name: 'App',
