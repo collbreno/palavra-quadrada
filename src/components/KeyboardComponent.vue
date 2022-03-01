@@ -11,19 +11,23 @@
         <div class="keyboard-row">
             <q-btn :ripple="{early: true}" class="keyboard-btn" v-for="letter in secondRowLetters"
                 @click="$emit('onLetterPressed', letter)" :key="letter">{{letter}}</q-btn>
-            <q-btn :ripple="{early: true}" class="keyboard-btn back-btn" @click="$emit('onBackPressed')" >Back</q-btn>
+            <q-btn :ripple="{early: true}" class="keyboard-btn back-btn" @click="$emit('onBackPressed')">
+                <q-icon name="backspace"/>
+            </q-btn>
         </div>
         <div class="keyboard-row">
             <q-btn :ripple="{early: true}" class="keyboard-btn" v-for="letter in thirdRowLetters"
                 @click="$emit('onLetterPressed', letter)" :key="letter">{{letter}}</q-btn>
-            <q-btn :ripple="{early: true}" class="keyboard-btn enter-btn" @click="$emit('onEnterPressed')" >Enter</q-btn>
+            <q-btn :ripple="{early: true}" class="keyboard-btn enter-btn" @click="$emit('onEnterPressed')" >
+                <q-icon name="keyboard_return"/>
+            </q-btn>
         </div>
     </div>
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { QBtn } from 'quasar'
+import { QBtn, QIcon } from 'quasar'
 
 export default defineComponent({
     emits: [
@@ -33,6 +37,7 @@ export default defineComponent({
     ],
     components: {
       QBtn,  
+      QIcon,
     },
     setup() {
         const firstRowLetters = ['Q','W','E','R','T','Y','U','I','O','P',];
@@ -70,6 +75,7 @@ export default defineComponent({
         cursor: pointer;
         flex: 1;
         border-radius: 5px;
+        height: 60px;
     }
 
 
