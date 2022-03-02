@@ -63,12 +63,11 @@ class SquareController {
         }
         setTimeout(() => {
             this.guesses.push(guess)
-            this.keyboardData.updateNotInSquareLetters(guess.split(''));
-            for (const wordData of this._words) {
-                this.keyboardData.updateGreenLetters(wordData._greenLetters.filter(x => x != ''));
-                this.keyboardData.updateYellowLetters(wordData._yellowLetters);
-            }
-            console.log(this.keyboardData)
+            this.keyboardData.update({
+                greenLetters: this._words.flatMap(x => x._greenLetters),
+                yellowLetters: this._words.flatMap(x => x._yellowLetters),
+                guess: guess,
+            });
             this._guessData.clear();
         }, 100*2*5);
     }

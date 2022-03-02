@@ -1,5 +1,12 @@
 import '@/assets/colors';
 import { correctSpotColor, notGuessedYetColor, notInSquareColor, wrongSpotColor } from '@/assets/colors';
+import { removeAccents } from '@/utils/RemoveAccents';
+
+interface IUpdateParams {
+    guess: string,
+    greenLetters: string[],
+    yellowLetters: string[],
+}
 
 enum LetterRanking {
     NotTriedYet,
@@ -18,7 +25,6 @@ class KeyboardData {
 
     getColor(letter: string) {
         if (!this.map.has(letter)) {
-            console.log('nao tem letra', letter, this.map)
             return notGuessedYetColor;
         }
         switch (this.map.get(letter)) {
@@ -33,30 +39,26 @@ class KeyboardData {
         }
     }
 
-    updateNotInSquareLetters(letters: string[]) {
-        for (const letter of letters) {
-            if (!this.map.has(letter)) {
+    update(param: IUpdateParams) {
+        const guess = removeAccents(param.guess);
+        const greenLetters = param.greenLetters.map(x => removeAccents(x));
+        const yellowLetters = param.yellowLetters;
+
+        for (const letter of guess) {
+            console.log(letter)
+            if (!greenLetters.includes(letter) && !yellowLetters.includes(letter)) {
                 this.map.set(letter, LetterRanking.NotInSquare);
             }
         }
-    }
 
-    updateGreenLetters(letters: string[]) {
-        for (const letter of letters) {
-            if (!this.map.has(letter)
-                || this.map.get(letter) == LetterRanking.NotInSquare) {
+        for (const letter of greenLetters) {
+            if (!yellowLetters.includes(letter)) {
                 this.map.set(letter, LetterRanking.AllPlacedCorrectly);
             }
         }
-    }
 
-    updateYellowLetters(letters: string[]) {
-        for (const letter of letters) {
-            if (!this.map.has(letter)
-                || this.map.get(letter) == LetterRanking.NotInSquare
-                || this.map.get(letter) == LetterRanking.AllPlacedCorrectly) {
-                this.map.set(letter, LetterRanking.UnplacedLeft);
-            }
+        for (const letter of yellowLetters) {
+            this.map.set(letter, LetterRanking.UnplacedLeft);
         }
     }
 }
