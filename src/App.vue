@@ -8,6 +8,7 @@
       :squareController="squareController"
       @onGuessCountPressed="showGuesses"/>
     <keyboard-component 
+      :keyboardData="squareController.keyboardData"
       @onLetterPressed="addLetter" 
       @onBackPressed="removeLetter"
       @onEnterPressed="submit"/>

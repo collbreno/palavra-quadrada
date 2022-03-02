@@ -2,22 +2,27 @@
     <div class="parent">
         <div class="keyboard-row">
             <q-btn :ripple="{early: true}" class="keyboard-btn" v-for="letter in firstRowLetters"
-                @click="$emit('onLetterPressed', letter)" :key="letter">
-                <div class="keyboard-btn-content">
-                    {{letter}}
-                </div>
+                @click="$emit('onLetterPressed', letter)" :key="letter"
+                :style="{backgroundColor: keyboardData.getColor(letter)}">
+                {{letter}}
             </q-btn>
         </div>
         <div class="keyboard-row">
             <q-btn :ripple="{early: true}" class="keyboard-btn" v-for="letter in secondRowLetters"
-                @click="$emit('onLetterPressed', letter)" :key="letter">{{letter}}</q-btn>
+                @click="$emit('onLetterPressed', letter)" :key="letter"
+                :style="{backgroundColor: keyboardData.getColor(letter)}">
+                {{letter}}
+            </q-btn>
             <q-btn :ripple="{early: true}" class="keyboard-btn back-btn" @click="$emit('onBackPressed')">
                 <q-icon name="backspace"/>
             </q-btn>
         </div>
         <div class="keyboard-row">
             <q-btn :ripple="{early: true}" class="keyboard-btn" v-for="letter in thirdRowLetters"
-                @click="$emit('onLetterPressed', letter)" :key="letter">{{letter}}</q-btn>
+                @click="$emit('onLetterPressed', letter)" :key="letter"
+                :style="{backgroundColor: keyboardData.getColor(letter)}">
+                {{letter}}
+            </q-btn>
             <q-btn :ripple="{early: true}" class="keyboard-btn enter-btn" @click="$emit('onEnterPressed')" >
                 <q-icon name="keyboard_return"/>
             </q-btn>
@@ -26,10 +31,17 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import { QBtn, QIcon } from 'quasar'
+import KeyboardData from '@/types/KeyboardData';
 
 export default defineComponent({
+    props: {
+        keyboardData: {
+            required: true,
+            type: Object as PropType<KeyboardData>,
+        },
+    },
     emits: [
         'onBackPressed',
         'onLetterPressed',
@@ -68,7 +80,7 @@ export default defineComponent({
 
     .keyboard-btn {
         padding: 0px;
-        margin: 1px;
+        margin: 0.5px;
         background: grey;
         color: white;
         border-radius: 2px;
@@ -80,13 +92,11 @@ export default defineComponent({
 
 
     .back-btn {
-        margin-left: 10px;
-        flex: 1.5;
+        flex: 1;
     }
 
     .enter-btn {
-        margin-left: 10px;
-        flex: 1.5;
+        flex: 3;
     }
 
     .parent {

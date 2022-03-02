@@ -1,4 +1,5 @@
 import GuessData from "./GuessData";
+import KeyboardData from "./KeyboardData";
 import WordData from "./WordData";
 
 class SquareController {
@@ -6,12 +7,14 @@ class SquareController {
     guesses: string[];
     private _guessData: GuessData;
     lettersScale: number[][];
+    keyboardData: KeyboardData;
 
     constructor(correctWords: string[]) {
         this.guesses = [];
         this._guessData = new GuessData();
         this._words = [];
         this.lettersScale = [];
+        this.keyboardData = new KeyboardData();
         for (let i = 0; i < 5; i++) {
             this._words.push(
                 new WordData(correctWords[i])
@@ -60,6 +63,12 @@ class SquareController {
         }
         setTimeout(() => {
             this.guesses.push(guess)
+            this.keyboardData.updateNotInSquareLetters(guess.split(''));
+            for (const wordData of this._words) {
+                this.keyboardData.updateGreenLetters(wordData._greenLetters.filter(x => x != ''));
+                this.keyboardData.updateYellowLetters(wordData._yellowLetters);
+            }
+            console.log(this.keyboardData)
             this._guessData.clear();
         }, 100*2*5);
     }
