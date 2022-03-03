@@ -1,14 +1,14 @@
 <template>
     <div class="word">
         <letter-tile 
-            class="letter-tile" v-for="(letter, index) in wordData._greenLetters"
+            class="letter-tile" v-for="(letter, index) in wordData.greenLetters"
             :color="letter == '' ? defaultColor : correctColor" 
             v-bind:key="`letter-${rowIndex}${index}`" :letter="letter"
             :style="{
                 transform: `scale(${lettersScale[index]})`,
                 transition: 'transform 100ms',
             }"/>
-        <yellow-letters :letters="wordData._yellowLetters"/>
+        <yellow-letters :letters="wordData.yellowLetters"/>
     </div>
 </template>
 

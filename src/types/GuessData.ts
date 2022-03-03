@@ -3,41 +3,37 @@ import { InvalidWordLength, WordNotInList } from "@/utils/Exceptions";
 import { removeAccents } from "@/utils/RemoveAccents";
 
 class GuessData {
-    _typedLetters: string[];
+    letters: string[];
 
     constructor() {
-        this._typedLetters = [];
+        this.letters = [];
         for (let i = 0; i < 5; i++) {
-            this._typedLetters.push('')
+            this.letters.push('')
         }
     }
 
-    get letters(): string[] {
-        return this._typedLetters;
-    }
-
     get typedWord(): string {
-        return this._typedLetters.reduce((acc, cur) => acc+cur, '');
+        return this.letters.reduce((acc, cur) => acc+cur, '');
     }
 
-    get typedWordLength(): number {
+    get length(): number {
         return this.typedWord.length;
     }
 
     removeLetter(): void {
-        if (this.typedWordLength > 0) {
-            this._typedLetters[this.typedWordLength-1] = '';
+        if (this.length > 0) {
+            this.letters[this.length-1] = '';
         }
     }
 
     addLetter(letter: string): void {
-        if (this.typedWordLength < 5) {
-            this._typedLetters[this.typedWordLength] = letter;
+        if (this.length < 5) {
+            this.letters[this.length] = letter;
         }
     }
 
     submit(): string {
-        if (this.typedWordLength < 5) {
+        if (this.length < 5) {
             throw new InvalidWordLength();
         }
         const index = validWords.map(x => removeAccents(x)).indexOf(this.typedWord)
@@ -52,14 +48,14 @@ class GuessData {
     
     clear() {
         for (let i = 0; i < 5; i++) {
-            this._typedLetters[i] = '';
+            this.letters[i] = '';
         }
     }
 
     private setTypedWord(word: string) {
         const list = word.split('');
         for (let i = 0; i < 5; i++) {
-            this._typedLetters[i] = list[i];
+            this.letters[i] = list[i];
         }
     }
 
