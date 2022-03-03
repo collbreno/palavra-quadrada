@@ -23,6 +23,7 @@ import SquarePanel from './components/SquarePanel.vue';
 import validLetters from './assets/validLetters';
 import GuessesList from './components/GuessesDialog.vue';
 import GameToolbar from './components/GameToolbar.vue';
+import { LSKeys } from './assets/constants';
 
 export default defineComponent({
   name: 'App',
@@ -44,6 +45,11 @@ export default defineComponent({
   },
   created() {
     window.addEventListener('keydown', this.keyPressHandler);
+    const guessesFromLS = localStorage.getItem(LSKeys.guesses);
+    if (guessesFromLS) {
+      const guesses = JSON.parse(guessesFromLS);
+      this.squareController.batchSubmit(guesses);
+    }
   },
   unmounted() {
     window.removeEventListener('keydown', this.keyPressHandler);
@@ -58,6 +64,7 @@ export default defineComponent({
     submit() {
       try {
         this.squareController.submit();
+        localStorage.setItem(LSKeys.guesses, JSON.stringify(this.squareController.guesses));
       } catch (error: any) {
         this.$q.notify(error.message)
       }
