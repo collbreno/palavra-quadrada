@@ -1,7 +1,7 @@
 <template>
     <div class="row">
         <letter-tile v-for="(letter, index) in letters"
-            :color="'#424242'" 
+            :color="color" 
             v-bind:key="`guess-letter-${index}`" :letter="letter"/>
     </div>
 
@@ -10,6 +10,7 @@
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
 import LetterTile from '@/components/LetterTile.vue';
+import { currentGuessColor } from '@/assets/colors';
 
 export default defineComponent({
     components: {
@@ -19,6 +20,11 @@ export default defineComponent({
         letters: {
             required: true,
             type: Object as PropType<string[]>
+        }
+    },
+    computed: {
+        color() {
+            return currentGuessColor;
         }
     }
 })

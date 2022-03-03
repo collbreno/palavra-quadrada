@@ -5,6 +5,7 @@
 </template>
 
 <script lang="ts">
+import { guessCountColor } from '@/assets/colors'
 import { defineComponent } from 'vue'
 
 export default defineComponent({
@@ -14,13 +15,18 @@ export default defineComponent({
             type: Number,
         },
     },
+    computed: {
+        color() {
+            return guessCountColor;
+        }
+    }
 })
 </script>
 
 
 <style scoped>
     .guess-count {
-        background: #607D8B;
+        background: v-bind(color);
         cursor: pointer;
         display: flex;
         flex-direction: column;

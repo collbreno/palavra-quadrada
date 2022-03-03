@@ -10,6 +10,7 @@
 </template>
 
 <script lang="ts">
+import { wrongSpotColor } from '@/assets/colors'
 import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
@@ -18,6 +19,11 @@ export default defineComponent({
             required: true,
             type: Object as PropType<string[]>,
         }
+    },
+    computed: {
+        color() {
+            return wrongSpotColor;
+        }
     }
 })
 </script>
@@ -25,7 +31,7 @@ export default defineComponent({
 
 <style scoped>
     .square {
-        background-color: #FFAB00;
+        background-color: v-bind(color);
         width: 50px;
         height: 50px;
         margin: 1px;

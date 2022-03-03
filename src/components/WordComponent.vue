@@ -2,7 +2,7 @@
     <div class="word">
         <letter-tile 
             class="letter-tile" v-for="(letter, index) in wordData._greenLetters"
-            :color="letter == '' ? '#212121' : '#388E3C'" 
+            :color="letter == '' ? defaultColor : correctColor" 
             v-bind:key="`letter-${rowIndex}${index}`" :letter="letter"
             :style="{
                 transform: `scale(${lettersScale[index]})`,
@@ -17,6 +17,7 @@ import { defineComponent, PropType } from 'vue'
 import LetterTile from '@/components/LetterTile.vue';
 import WordData from '@/types/WordData';
 import YellowLetters from './YellowLetters.vue';
+import { correctSpotColor, notGuessedYetColor } from '@/assets/colors';
 
 export default defineComponent({
     components: {
@@ -37,6 +38,14 @@ export default defineComponent({
             type: Object as PropType<number[]>
         }
     },
+    computed: {
+        defaultColor() {
+            return notGuessedYetColor;
+        }, 
+        correctColor() {
+            return correctSpotColor;
+        }
+    }
 })
 </script>
 

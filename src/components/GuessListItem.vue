@@ -5,11 +5,12 @@
             v-for="(letter, index) in word.split('')" 
             :key="`guess-list-${guessIndex}${index}`" 
             :letter="letter"
-            :color="'#263238'"/>
+            :color="color"/>
     </div>
 </template>
 
 <script lang="ts">
+import { guessHistoryColor } from '@/assets/colors'
 import { defineComponent } from 'vue'
 import LetterTile from './LetterTile.vue'
 
@@ -26,6 +27,11 @@ export default defineComponent({
             required: true,
             type: Number,
         }
+    },
+    computed: {
+        color() {
+            return guessHistoryColor;
+        },
     }
 })
 </script>

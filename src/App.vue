@@ -1,5 +1,5 @@
 <template>
-  <div class="app" >
+  <div class="app">
     <game-toolbar 
       @onChartPressed="showStats"
       @onHelpPressed="showHelp"

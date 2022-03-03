@@ -1,5 +1,5 @@
 import '@/assets/colors';
-import { correctSpotColor, notGuessedYetColor, notInSquareColor, wrongSpotColor } from '@/assets/colors';
+import { correctSpotColor, letterNotUsedYetColor, notInSquareColor, wrongSpotColor } from '@/assets/colors';
 import { removeAccents } from '@/utils/RemoveAccents';
 
 interface IUpdateParams {
@@ -25,11 +25,11 @@ class KeyboardData {
 
     getColor(letter: string) {
         if (!this.map.has(letter)) {
-            return notGuessedYetColor;
+            return letterNotUsedYetColor;
         }
         switch (this.map.get(letter)) {
             case LetterRanking.NotTriedYet:
-                return notGuessedYetColor;
+                return letterNotUsedYetColor;
             case LetterRanking.NotInSquare:
                 return notInSquareColor;
             case LetterRanking.AllPlacedCorrectly:
