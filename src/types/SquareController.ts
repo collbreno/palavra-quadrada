@@ -63,6 +63,21 @@ class SquareController {
             this.guessData.clear();
         }, 100*2*5);
     }
+
+    batchSubmit(guesses: string[]) {
+        this.guesses = this.guesses.concat(guesses);
+        for (const guess of guesses) {
+            for (const wordData of this.words) {
+                wordData.submitGuess(guess);
+            }
+        }
+        
+        this.keyboardData.update({
+            guess: guesses.reduce((acc, cur) => acc+cur, ''),
+            greenLetters: this.words.flatMap(x => x.greenLetters),
+            yellowLetters: this.words.flatMap(x => x.yellowLetters),
+        });
+    }
 }
 
 export default SquareController;
