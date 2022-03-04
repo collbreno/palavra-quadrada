@@ -45,7 +45,6 @@ class KeyboardData {
         const yellowLetters = param.yellowLetters;
 
         for (const letter of guess) {
-            console.log(letter)
             if (!greenLetters.includes(letter) && !yellowLetters.includes(letter)) {
                 this.map.set(letter, LetterRanking.NotInSquare);
             }

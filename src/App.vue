@@ -64,10 +64,12 @@ export default defineComponent({
     submit() {
       try {
         const lastGuess = this.squareController.submit();
-        localStorage.setItem(
-          LSKeys.guesses, 
-          JSON.stringify(this.squareController.guesses.concat(lastGuess))
-        );
+        if (lastGuess) {
+          localStorage.setItem(
+            LSKeys.guesses, 
+            JSON.stringify(this.squareController.guesses.concat(lastGuess))
+          );
+        }
       } catch (error: any) {
         this.$q.notify(error.message)
       }
