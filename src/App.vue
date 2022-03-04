@@ -46,11 +46,19 @@ export default defineComponent({
   },
   created() {
     window.addEventListener('keydown', this.keyPressHandler);
-    const guessesFromLS = localStorage.getItem(LSKeys.guesses);
-    if (guessesFromLS) {
-      const guesses = JSON.parse(guessesFromLS);
-      this.squareController.batchSubmit(guesses);
-      this.checkGameOver();
+    const dayFromLocalStorage = localStorage.getItem(LSKeys.day);
+    const today = (new Date()).toISOString().substring(0, 10);
+    if (dayFromLocalStorage && dayFromLocalStorage == today) { 
+      const guessesFromLS = localStorage.getItem(LSKeys.guesses);
+      if (guessesFromLS) {
+        const guesses = JSON.parse(guessesFromLS);
+        this.squareController.batchSubmit(guesses);
+        this.checkGameOver();
+      }
+    }
+    else {
+      localStorage.removeItem(LSKeys.guesses);
+      localStorage.setItem(LSKeys.day, today);
     }
   },
   methods: {
