@@ -38,7 +38,7 @@ class SquareController {
         this.guessData.removeLetter();
     }
 
-    submit(): void {
+    submit(): string {
         const guess = this.guessData.submit();
         for (let i = 0; i < 5; i++) {
             setTimeout(() => {
@@ -62,6 +62,7 @@ class SquareController {
             });
             this.guessData.clear();
         }, 100*2*5);
+        return guess;
     }
 
     batchSubmit(guesses: string[]) {
