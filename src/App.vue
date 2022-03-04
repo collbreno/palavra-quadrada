@@ -25,6 +25,8 @@ import GuessesDialog from './components/GuessesDialog.vue';
 import DailyStatsDialog from './components/DailyStatsDialog.vue';
 import GameToolbar from './components/GameToolbar.vue';
 import { LSKeys } from './assets/constants';
+import LocalStats from './types/LocalStats';
+import { formatDate, onlyDate } from './utils/DateUtils';
 
 export default defineComponent({
   name: 'App',
@@ -35,25 +37,27 @@ export default defineComponent({
   },
   setup() {
     const squareController = ref<SquareController>(new SquareController([
-        'BICOS',
-        'ACENA',
-        'ZEREI',
-        'AMORA',
-        'ROLAS',
+        'OUSAS',
+        'BLOCO',
+        'RUMOR',
+        'ALADO',
+        'SARES',
     ]))
+    const localStats = new LocalStats(localStorage, new Date());
 
-    return { squareController }
+    return { squareController, localStats }
   },
   created() {
     window.addEventListener('keydown', this.keyPressHandler);
     const dayFromLocalStorage = localStorage.getItem(LSKeys.day);
-    const today = (new Date()).toISOString().substring(0, 10);
+    const today = formatDate(this.localStats.today);
     if (dayFromLocalStorage && dayFromLocalStorage == today) { 
       const guessesFromLS = localStorage.getItem(LSKeys.guesses);
       if (guessesFromLS) {
         const guesses = JSON.parse(guessesFromLS);
         this.squareController.batchSubmit(guesses);
-        this.checkGameOver();
+        if (this.squareController.isFinished)
+          this.showStats();
       }
     }
     else {
@@ -71,12 +75,12 @@ export default defineComponent({
     async submit() {
       try {
         const lastGuess = await this.squareController.submit();
-        this.checkGameOver();
         if (lastGuess) {
           localStorage.setItem(
             LSKeys.guesses, 
             JSON.stringify(this.squareController.guesses)
           );
+          this.checkGameOver();
         }
       } catch (error: any) {
         this.$q.notify(error.message)
@@ -94,21 +98,20 @@ export default defineComponent({
       }
     },
     showGuesses() {
-      if (this.squareController.guesses.length > 0) {
-        this.$q.dialog({
-          component: GuessesDialog,
-          componentProps: {
-            guesses: this.squareController.guesses,
-          },
-        });
-      }
-      else {
-        this.$q.notify('Ainda não há nenhum chute');
-      }
-      
+      this.$q.dialog({
+        component: GuessesDialog,
+        componentProps: {
+          guesses: this.squareController.guesses,
+        },
+      });
     },
     checkGameOver() {
       if (this.squareController.isFinished) {
+        if (this.squareController.isCorrect) {
+          this.localStats.won(this.squareController.guesses.length);
+        } else {
+          this.localStats.lost();
+        }
         this.showStats();
       }
     },
@@ -121,6 +124,7 @@ export default defineComponent({
         component: DailyStatsDialog,
         componentProps: {
           squareController: this.squareController,
+          localStats: this.localStats,
         }
       });
     },

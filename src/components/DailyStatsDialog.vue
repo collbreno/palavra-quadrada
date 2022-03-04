@@ -10,10 +10,10 @@
             </div>
             <div class="content">
                 <div class="streaks">
-                    <span>Sequência</span>
-                    <span>Melhor Sequência</span>
-                    <span>Vitórias</span>
-                    <span>Jogos</span>
+                    <local-stats-item :title="'Jogos'" :text="localStats.amountOfGames"/>
+                    <local-stats-item :title="'Vitórias'" :text="winsPercentage"/>
+                    <local-stats-item :title="'Sequência Atual'" :text="localStats.currentStreak"/>
+                    <local-stats-item :title="'Melhor Sequência'" :text="localStats.maxStreak"/>
                 </div>
                 <q-btn 
                     v-if="showShare" class="share-btn" 
@@ -26,14 +26,17 @@
 
 <script lang="ts">
 import SquareController from '@/types/SquareController'
+import LocalStats from '@/types/LocalStats'
 import { defineComponent, PropType } from 'vue'
 import { QDialog, QCard, QBtn, useDialogPluginComponent, copyToClipboard } from 'quasar'
+import LocalStatsItem from './LocalStatsItem.vue';
 
 export default defineComponent({
     components: {
         QDialog,
         QCard,
         QBtn,
+        LocalStatsItem,
     },
     emits: [
         ...useDialogPluginComponent.emits,
@@ -46,12 +49,22 @@ export default defineComponent({
         squareController: {
             required: true,
             type: Object as PropType<SquareController>,
-        }
+        },
+        localStats: {
+            required: true,
+            type: Object as PropType<LocalStats>,
+        },
     },
     computed: {
         showShare() {
             return this.squareController.isFinished;
         },
+        winsPercentage() {
+            let value = this.localStats.amountOfWins/this.localStats.amountOfGames;
+            if (isNaN(value)) value = 0;
+            value *= 100;
+            return `${value.toFixed(1)}%`;
+        }
     },
     methods: {
         hide() {
