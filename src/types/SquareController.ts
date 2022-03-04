@@ -80,6 +80,10 @@ class SquareController {
             guess: guess,
         });
         this.guessData.clear();
+        this.updateTriedNeeded();
+    }
+
+    private updateTriedNeeded() {
         for (let i = 0; i < 5; i++) {
             for (let j = 0; j < 5; j++) {
                 if (!this.triesNeeded[i][j] && this.words[i].greenLetters[j] != '') {
@@ -87,15 +91,15 @@ class SquareController {
                 }
             }
         }
-        console.log(this.triesNeeded);
     }
 
     batchSubmit(guesses: string[]) {
-        this.guesses = this.guesses.concat(guesses);
         for (const guess of guesses) {
             for (const wordData of this.words) {
                 wordData.submitGuess(guess);
             }
+            this.guesses.push(guess);
+            this.updateTriedNeeded();
         }
         
         this.keyboardData.update({

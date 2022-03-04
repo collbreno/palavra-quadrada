@@ -21,7 +21,8 @@ import SquareController from './types/SquareController';
 import KeyboardComponent from './components/KeyboardComponent.vue';
 import SquarePanel from './components/SquarePanel.vue';
 import validLetters from './assets/validLetters';
-import GuessesList from './components/GuessesDialog.vue';
+import GuessesDialog from './components/GuessesDialog.vue';
+import DailyStatsDialog from './components/DailyStatsDialog.vue';
 import GameToolbar from './components/GameToolbar.vue';
 import { LSKeys } from './assets/constants';
 
@@ -34,11 +35,11 @@ export default defineComponent({
   },
   setup() {
     const squareController = ref<SquareController>(new SquareController([
-        'RIRAM', 
-        'ALISO', 
-        'SURTA', 
-        'ADERI', 
-        'SOMOS'
+        'BICOS',
+        'ACENA',
+        'ZEREI',
+        'AMORA',
+        'ROLAS',
     ]))
 
     return { squareController }
@@ -49,10 +50,8 @@ export default defineComponent({
     if (guessesFromLS) {
       const guesses = JSON.parse(guessesFromLS);
       this.squareController.batchSubmit(guesses);
+      this.checkGameOver();
     }
-  },
-  unmounted() {
-    window.removeEventListener('keydown', this.keyPressHandler);
   },
   methods: {
     addLetter(letter: string) {
@@ -64,6 +63,7 @@ export default defineComponent({
     async submit() {
       try {
         const lastGuess = await this.squareController.submit();
+        this.checkGameOver();
         if (lastGuess) {
           localStorage.setItem(
             LSKeys.guesses, 
@@ -88,24 +88,33 @@ export default defineComponent({
     showGuesses() {
       if (this.squareController.guesses.length > 0) {
         this.$q.dialog({
-          component: GuessesList,
+          component: GuessesDialog,
           componentProps: {
             guesses: this.squareController.guesses,
           },
-        })
+        });
       }
       else {
         this.$q.notify('Ainda não há nenhum chute');
       }
       
     },
+    checkGameOver() {
+      if (this.squareController.isFinished) {
+        this.showStats();
+      }
+    },
     showHelp() {
       //TODO: implement
       this.$q.notify('Ainda não implementado');
     },
     showStats() {
-      //TODO: implement
-      this.$q.notify('Ainda não implementado');
+      this.$q.dialog({
+        component: DailyStatsDialog,
+        componentProps: {
+          squareController: this.squareController,
+        }
+      });
     },
     showSettings() {
       //TODO: implement

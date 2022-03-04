@@ -24,6 +24,7 @@ export default {
     },
     ripple: {
       early: true,
-    }
+    },
+    dark: true,
   }
 }

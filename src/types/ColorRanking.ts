@@ -4,7 +4,7 @@ const orangeEmoji = '🟧'
 const blackEmoji = '⬛'
 
 interface IGetShareTextParam {
-    triesNeeded: [number][];
+    triesNeeded: number[][];
     gameUrl: string;
     gameDay: number;
 }
@@ -30,7 +30,7 @@ class ColorRanking {
         }
     }
 
-    private getBoardRanking(triesNeeded: [number][]): string {
+    private getBoardRanking(triesNeeded: number[][]): string {
         let text = '';
         for (let i = 0; i < 5; i++) {
             for (let j = 0; j < 5; j++) {
@@ -41,7 +41,7 @@ class ColorRanking {
         return text;
     }
 
-    private getMax(triesNeeded: [number][]): number {
+    private getMax(triesNeeded: number[][]): number {
         let max = 0;
         for (let i = 0; i < 5; i++) {
             for (let j = 0; j < 5; j++) {

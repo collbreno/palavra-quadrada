@@ -3,10 +3,10 @@
         <q-toolbar-title>
             Palavra Quadrada
         </q-toolbar-title>    
-        <q-btn flat @click="$emit('onHelpPressed')">
+        <q-btn flat @click="$emit('onChartPressed')">
             <q-icon name="bar_chart"/>
         </q-btn>
-        <q-btn flat @click="$emit('onChartPressed')">
+        <q-btn flat @click="$emit('onHelpPressed')">
             <q-icon name="help"/>
         </q-btn>
         <q-btn flat @click="$emit('onSettingsPressed')">
