@@ -1,29 +1,29 @@
 <template>
     <div class="parent">
         <div class="keyboard-row">
-            <q-btn :ripple="{early: true}" class="keyboard-btn" v-for="letter in firstRowLetters"
+            <q-btn class="keyboard-btn" v-for="letter in firstRowLetters"
                 @click="$emit('onLetterPressed', letter)" :key="letter"
                 :style="{backgroundColor: keyboardData.getColor(letter)}">
                 {{letter}}
             </q-btn>
         </div>
         <div class="keyboard-row">
-            <q-btn :ripple="{early: true}" class="keyboard-btn" v-for="letter in secondRowLetters"
+            <q-btn class="keyboard-btn" v-for="letter in secondRowLetters"
                 @click="$emit('onLetterPressed', letter)" :key="letter"
                 :style="{backgroundColor: keyboardData.getColor(letter)}">
                 {{letter}}
             </q-btn>
-            <q-btn :ripple="{early: true}" class="keyboard-btn back-btn" @click="$emit('onBackPressed')">
+            <q-btn class="keyboard-btn back-btn" @click="$emit('onBackPressed')">
                 <q-icon name="backspace"/>
             </q-btn>
         </div>
         <div class="keyboard-row">
-            <q-btn :ripple="{early: true}" class="keyboard-btn" v-for="letter in thirdRowLetters"
+            <q-btn class="keyboard-btn" v-for="letter in thirdRowLetters"
                 @click="$emit('onLetterPressed', letter)" :key="letter"
                 :style="{backgroundColor: keyboardData.getColor(letter)}">
                 {{letter}}
             </q-btn>
-            <q-btn :ripple="{early: true}" class="keyboard-btn enter-btn" @click="$emit('onEnterPressed')" >
+            <q-btn class="keyboard-btn enter-btn" @click="$emit('onEnterPressed')" >
                 <q-icon name="keyboard_return"/>
             </q-btn>
         </div>

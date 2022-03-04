@@ -21,6 +21,9 @@ export default {
       timeout: 500,
       position: 'top',
       group: false,
+    },
+    ripple: {
+      early: true,
     }
   }
 }
