@@ -1,3 +1,5 @@
+import { letterScaleAnimDuration } from "@/assets/constants";
+import { sleep } from "@/utils/Sleep";
 import ColorRanking from "./ColorRanking";
 import GuessData from "./GuessData";
 import KeyboardData from "./KeyboardData";
@@ -50,25 +52,23 @@ class SquareController {
         this.guessData.removeLetter();
     }
 
-    submit(): string | undefined {
+    private setLettersScaleInRow(rowIndex: number, scale: number) {
+        for (let i = 0; i < 6; i++) {
+            this.lettersScale[rowIndex][i] = scale;
+        }
+    }
+
+    async submit(): Promise<string | undefined> {
         if (this.isFinished) return;
         const guess = this.guessData.submit();
         for (let i = 0; i < 5; i++) {
-            setTimeout(() => {
-                for (let j = 0; j < 6; j++) {
-                    this.lettersScale[i][j] = 1.05;
-                }
-                this.words[i].submitGuess(guess);
-                setTimeout(() => {
-                    for (let j = 0; j < 6; j++) {
-                        this.lettersScale[i][j] = 1.0;
-                    }
-                }, 100);
-            }, 100*i*2);
+            this.setLettersScaleInRow(i, 1.05);
+            await sleep(letterScaleAnimDuration);
+            this.words[i].submitGuess(guess);
+            this.setLettersScaleInRow(i, 1)
+            await sleep(letterScaleAnimDuration);
         }
-        setTimeout(() => {
-            this.onGuessSubmitted(guess);
-        }, 100*2*5);
+        this.onGuessSubmitted(guess);
         return guess;
     }
 

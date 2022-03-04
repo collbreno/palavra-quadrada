@@ -61,13 +61,13 @@ export default defineComponent({
     removeLetter() {
       this.squareController.removeLetter();
     },
-    submit() {
+    async submit() {
       try {
-        const lastGuess = this.squareController.submit();
+        const lastGuess = await this.squareController.submit();
         if (lastGuess) {
           localStorage.setItem(
             LSKeys.guesses, 
-            JSON.stringify(this.squareController.guesses.concat(lastGuess))
+            JSON.stringify(this.squareController.guesses)
           );
         }
       } catch (error: any) {
