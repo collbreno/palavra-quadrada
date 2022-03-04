@@ -41,14 +41,14 @@ class ColorRanking {
         return text;
     }
 
-    private getMax(triesNeeded: number[][]): number {
+    private getMax(triesNeeded: number[][]): string {
         let max = 0;
         for (let i = 0; i < 5; i++) {
             for (let j = 0; j < 5; j++) {
                 max = Math.max(max, triesNeeded[i][j]);
             }
         }
-        return max;
+        return isNaN(max) ? 'X' : max.toString();
     }
 
     getShareText(param: IGetShareTextParam): string {
