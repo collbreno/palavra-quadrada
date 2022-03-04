@@ -59,7 +59,7 @@ export default defineComponent({
         },
         share() {
             copyToClipboard(this.squareController.colorRanking.getShareText({
-                gameUrl: 'https://palavra-quadrada.web.app/',
+                gameUrl: 'palavra-quadrada.web.app/',
                 gameDay: 0.1,
                 triesNeeded: this.squareController.triesNeeded,
             }))
