@@ -10,12 +10,17 @@
             </div>
             <div class="content">
                 <div class="streaks">
-                    <local-stats-item :title="'Jogos'" :text="localStats.amountOfGames"/>
-                    <local-stats-item :title="'Vitórias'" :text="winsPercentage"/>
-                    <local-stats-item :title="'Sequência Atual'" :text="localStats.currentStreak"/>
-                    <local-stats-item :title="'Melhor Sequência'" :text="localStats.maxStreak"/>
+                    <local-stats-item :label="'Jogos'" :value="localStats.amountOfGames.toString()"/>
+                    <local-stats-item :label="'Vitórias'" :value="winsPercentage"/>
+                    <local-stats-item :label="'Sequência Atual'" :value="localStats.currentStreak.toString()"/>
+                    <local-stats-item :label="'Melhor Sequência'" :value="localStats.maxStreak.toString()"/>
+                </div>
+                <div class="graph">
+                    <wins-distribution-graph :localStats="localStats"/>
                 </div>
                 <q-btn 
+                    flat
+                    :style="{backgroundColor: '#006847'}"
                     v-if="showShare" class="share-btn" 
                     @click="share"
                     label="Compartilhar" icon="share"/>
@@ -30,6 +35,7 @@ import LocalStats from '@/types/LocalStats'
 import { defineComponent, PropType } from 'vue'
 import { QDialog, QCard, QBtn, useDialogPluginComponent, copyToClipboard } from 'quasar'
 import LocalStatsItem from './LocalStatsItem.vue';
+import WinsDistributionGraph from './WinsDistributionGraph.vue';
 
 export default defineComponent({
     components: {
@@ -37,6 +43,7 @@ export default defineComponent({
         QCard,
         QBtn,
         LocalStatsItem,
+        WinsDistributionGraph,
     },
     emits: [
         ...useDialogPluginComponent.emits,
@@ -99,7 +106,7 @@ export default defineComponent({
     }
 
     .content {
-        padding: 24px;
+        padding: 18px;
         display: flex;
         flex-direction: column;
     }
@@ -113,6 +120,10 @@ export default defineComponent({
     .share-btn {
         margin: auto;
         align-self: center;
-        margin-top: 48px;
+        margin-top: 12px;
+    }
+
+    .graph {
+        margin-top: 12px;
     }
 </style>

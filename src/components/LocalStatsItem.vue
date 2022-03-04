@@ -1,7 +1,7 @@
 <template>
     <div class="local-stats-item">
-        <span class="text">{{text}}</span>
-        <span class="title">{{title}}</span>
+        <span class="value">{{value}}</span>
+        <span class="label">{{label}}</span>
     </div>
 </template>
 
@@ -10,11 +10,11 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
     props: {
-        title: {
+        value: {
             required: true,
             type: String,
         },
-        text: {
+        label: {
             required: true,
             type: String,
         }
@@ -31,11 +31,11 @@ export default defineComponent({
         text-align: center;
     }
 
-    .text {
-        font-size: 22px;
+    .label {
+        font-size: 12px;
     }
 
-    .title {
-        font-size: 14px;
+    .value {
+        font-size: 22px;
     }
 </style>

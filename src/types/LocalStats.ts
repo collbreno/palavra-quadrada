@@ -16,11 +16,10 @@ class LocalStats {
     private _maxStreak: number;
     private _lastWon: Date | undefined;
     private _today: Date;
-    private winDistribution: Map<number, number>;
+    winDistribution: Map<number, number>;
     private ls: Storage;
 
     constructor(localStorage: Storage, today: Date) {
-        console.log(today);
         const fromLS = localStorage.getItem(LSKeys.localStats);
         if (fromLS) {
             const parsed = JSON.parse(fromLS) as LSContent;
