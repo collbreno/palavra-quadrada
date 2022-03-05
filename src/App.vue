@@ -37,11 +37,11 @@ export default defineComponent({
   },
   setup() {
     const squareController = ref<SquareController>(new SquareController([
-        'OUSAS',
-        'BLOCO',
-        'RUMOR',
-        'ALADO',
-        'SARES',
+        'USADO',
+        'RELES',
+        'RIMAS',
+        'ATADO',
+        'RASOS',
     ]))
     const localStats = new LocalStats(localStorage, new Date());
 
