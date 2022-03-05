@@ -11,6 +11,7 @@
             :rowIndex="index"
             :wordData="word"
             :lettersScale="squareController.lettersScale[index]"
+            :showCorrectAnswer="squareController.isFinished"
             v-bind:key="`word-${index}`" />
     </div>
 </template>

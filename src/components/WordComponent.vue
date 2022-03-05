@@ -1,9 +1,10 @@
 <template>
     <div class="word">
         <letter-tile 
-            class="letter-tile" v-for="(letter, index) in wordData.greenLetters"
-            :color="letter == '' ? defaultColor : correctColor" 
-            v-bind:key="`letter-${rowIndex}${index}`" :letter="letter"
+            class="letter-tile" v-for="(_, index) in wordData.greenLetters"
+            v-bind:key="`letter-${rowIndex}${index}`" 
+            :color="getColor(index)" 
+            :letter="getLetter(index)"
             :style="{
                 transform: `scale(${lettersScale[index]})`,
                 transition: 'transform 100ms',
@@ -36,7 +37,22 @@ export default defineComponent({
         lettersScale: {
             required: true,
             type: Object as PropType<number[]>
+        },
+        showCorrectAnswer: {
+            required: true,
+            type: Boolean,
         }
+    },
+    methods: {
+        getLetter(index: number): string {
+            const greenLetter = this.wordData.greenLetters[index];
+            if (!this.showCorrectAnswer) return greenLetter;
+            else return this.wordData.correctWord[index];
+        },
+        getColor(index: number): string {
+            return this.wordData.greenLetters[index] == '' 
+                ? notGuessedYetColor : correctSpotColor;
+        },
     },
     computed: {
         defaultColor() {
