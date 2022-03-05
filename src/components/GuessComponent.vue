@@ -1,10 +1,7 @@
 <template>
-    <div class="row">
-        <letter-tile v-for="(letter, index) in letters"
-            :color="color" 
-            v-bind:key="`guess-letter-${index}`" :letter="letter"/>
-    </div>
-
+    <letter-tile v-for="(letter, index) in letters"
+        :color="color" 
+        v-bind:key="`guess-letter-${index}`" :letter="letter"/>
 </template>
 
 <script lang="ts">

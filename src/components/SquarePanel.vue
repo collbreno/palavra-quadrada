@@ -1,18 +1,19 @@
 <template>
-    <div class="panel">
-        <div class="row">
-            <guess-component :letters="squareController.guessData.letters" />
-            <guess-count 
-                @click="$emit('onGuessCountPressed')"
-                :count="squareController.guesses.length"/>
+    <div class="parent">
+        <div class="panel">
+            <div class="row">
+                <guess-component :letters="squareController.guessData.letters" />
+                <guess-count 
+                    @click="$emit('onGuessCountPressed')"
+                    :count="squareController.guesses.length"/>
+            </div>
+            <word-component v-for="(word, index) in squareController.words"
+                :rowIndex="index"
+                :wordData="word"
+                :lettersScale="squareController.lettersScale[index]"
+                :showCorrectAnswer="squareController.isFinished"
+                v-bind:key="`word-${index}`" />
         </div>
-        
-        <word-component v-for="(word, index) in squareController.words"
-            :rowIndex="index"
-            :wordData="word"
-            :lettersScale="squareController.lettersScale[index]"
-            :showCorrectAnswer="squareController.isFinished"
-            v-bind:key="`word-${index}`" />
     </div>
 </template>
 
@@ -43,9 +44,22 @@ export default defineComponent({
 <style scoped>
     .panel {
         width: 100%;
+        max-width: 300px;
+        margin: auto;
         padding: 10px;
+        aspect-ratio: 6/6;
         display: flex;
         flex-direction: column;
         align-items: center;
+    }
+
+    .parent {
+        width: 100%;
+        padding: 10px;
+    }
+
+    .row {
+        flex: 1;
+        width: 100%;
     }
 </style>

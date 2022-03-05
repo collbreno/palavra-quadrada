@@ -26,12 +26,11 @@ export default defineComponent({
     .letter-tile {
         background: grey;
         display: flex;
-        width: 50px;
-        height: 50px;
         border-radius: 5px;
         justify-content: center;
         align-content: center;
         margin: 1px;
+        flex: 1;
     }
 
     .letter-text {

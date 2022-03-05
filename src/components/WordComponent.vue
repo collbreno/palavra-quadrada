@@ -69,5 +69,8 @@ export default defineComponent({
     .word {
         display: flex;
         flex-direction: row;
-    }    
+        flex-wrap: wrap;
+        width: 100%;
+        flex: 1;
+    }
 </style>

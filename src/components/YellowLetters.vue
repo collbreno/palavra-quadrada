@@ -32,23 +32,24 @@ export default defineComponent({
 <style scoped>
     .square {
         background-color: v-bind(color);
-        width: 50px;
-        height: 50px;
         margin: 1px;
         border-radius: 5px;
         display: flex;
         flex-direction: row;
         align-items: center;
-        justify-content: space-evenly;
+        justify-content: center;
+        align-content: center;
         flex-wrap: wrap;
-        padding: 2px;
+        flex: 1;
+        line-height: 1.2;
     }
 
     .text {
         color: white;
-        font-size: 16px;
+        font-size: 12px;
         font-weight: 600;
         margin: 0px 2px;
-
+        letter-spacing: 0px;
+        padding: 0px;
     }
 </style>

@@ -30,14 +30,13 @@ export default defineComponent({
         cursor: pointer;
         display: flex;
         flex-direction: column;
-        width: 50px;
-        height: 50px;
         border-radius: 5px;
         justify-content: center;
         align-items: center;
         justify-items: center;
         align-content: center;
         margin: 1px;
+        flex: 1;
     }
 
     .count-text {
