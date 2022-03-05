@@ -69,10 +69,10 @@ export default defineComponent({
     .keyboard-row {
         display: flex;
         flex-direction: row;
-        width: 570px;
+        width: 420px;
     }
 
-    @media screen and (max-width: 570px){
+    @media screen and (max-width: 420px){
         .keyboard-row {
             width: 100%;
         }
@@ -87,16 +87,18 @@ export default defineComponent({
         cursor: pointer;
         flex: 1;
         border-radius: 5px;
-        height: 60px;
+        height: 50px;
     }
 
 
     .back-btn {
         flex: 1;
+        font-size: 11px;
     }
 
     .enter-btn {
         flex: 3;
+        font-size: 11px;
     }
 
     .parent {
