@@ -71,7 +71,7 @@ export default defineComponent({
     }
 
     .amount {
-        width: 30px;
+        width: 20px;
         text-align: end;
         margin-right: 6px;
     }
