@@ -35,6 +35,7 @@ export default defineComponent({
 
     .letter-text {
         font-size: 22px;
+        font-weight: 500;
         margin: auto;
         color: white;
     }

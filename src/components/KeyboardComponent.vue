@@ -34,6 +34,7 @@
 import { defineComponent, PropType } from 'vue'
 import { QBtn, QIcon } from 'quasar'
 import KeyboardData from '@/types/KeyboardData';
+import { keyboardBtnColor } from '@/assets/colors';
 
 export default defineComponent({
     props: {
@@ -62,6 +63,11 @@ export default defineComponent({
             thirdRowLetters,
         }
     },
+    computed: {
+        btnColor() {
+            return keyboardBtnColor;
+        }
+    }
 })
 </script>
 
@@ -81,7 +87,7 @@ export default defineComponent({
     .keyboard-btn {
         padding: 0px;
         margin: 0.5px;
-        background: grey;
+        background: v-bind(btnColor);
         color: white;
         border-radius: 2px;
         cursor: pointer;

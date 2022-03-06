@@ -1,6 +1,7 @@
 <template>
     <div class="guess-count">
         <span class="count-text">{{ count }}</span>
+        <span class="view-text">(Ver)</span>
     </div>
 </template>
 
@@ -42,6 +43,14 @@ export default defineComponent({
     .count-text {
         font-size: 16px;
         font-weight: 700;
+        color: white;
+        margin: 0px;
+        padding: 0px;
+        line-height: 1.2;
+    }    
+    
+    .view-text {
+        font-size: 12px;
         color: white;
         margin: 0px;
         padding: 0px;

@@ -46,7 +46,7 @@ export default defineComponent({
 
     .text {
         color: white;
-        font-size: 12px;
+        font-size: 14px;
         font-weight: 600;
         margin: 0px 2px;
         letter-spacing: 0px;
