@@ -45,8 +45,8 @@ export default defineComponent({
     .panel {
         width: 100vw;
         height: 100vw;
-        max-height: 300px;
-        max-width: 300px;
+        max-height: 360px;
+        max-width: 360px;
         margin: auto;
         padding: 10px;
         display: flex;
