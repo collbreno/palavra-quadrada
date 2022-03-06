@@ -137,5 +137,7 @@ export default defineComponent({
 </script>
 
 <style>
-
+  .app {
+    touch-action: manipulation;
+  }
 </style>
