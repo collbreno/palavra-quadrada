@@ -7,9 +7,14 @@
             :letter="getLetter(index)"
             :style="{
                 transform: `scale(${lettersScale[index]})`,
-                transition: 'transform 100ms',
+                transition: `transform ${animduration}ms`,
             }"/>
-        <yellow-letters :letters="wordData.yellowLetters"/>
+        <yellow-letters 
+            :letters="wordData.yellowLetters"
+            :style="{
+                transform: `scale(${lettersScale[5]})`,
+                transition: `transform ${animduration}ms`,
+            }"/>
     </div>
 </template>
 
@@ -19,6 +24,7 @@ import LetterTile from '@/components/LetterTile.vue';
 import WordData from '@/types/WordData';
 import YellowLetters from './YellowLetters.vue';
 import { correctSpotColor, notGuessedYetColor } from '@/assets/colors';
+import { letterScaleAnimDuration } from '@/assets/constants';
 
 export default defineComponent({
     components: {
@@ -60,6 +66,9 @@ export default defineComponent({
         }, 
         correctColor() {
             return correctSpotColor;
+        },
+        animduration() {
+            return letterScaleAnimDuration;
         }
     }
 })

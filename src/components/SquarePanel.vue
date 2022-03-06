@@ -43,11 +43,12 @@ export default defineComponent({
 
 <style scoped>
     .panel {
-        width: 100%;
+        width: 100vw;
+        height: 100vw;
+        max-height: 300px;
         max-width: 300px;
         margin: auto;
         padding: 10px;
-        aspect-ratio: 6/6;
         display: flex;
         flex-direction: column;
         align-items: center;
