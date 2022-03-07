@@ -26,7 +26,7 @@ import DailyStatsDialog from './components/DailyStatsDialog.vue';
 import GameToolbar from './components/GameToolbar.vue';
 import { LSKeys } from './assets/constants';
 import LocalStats from './types/LocalStats';
-import { formatDate, onlyDate } from './utils/DateUtils';
+import { formatDate } from './utils/DateUtils';
 import HelpDialog from './components/HelpDialog.vue';
 
 export default defineComponent({
