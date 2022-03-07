@@ -27,6 +27,7 @@ import GameToolbar from './components/GameToolbar.vue';
 import { LSKeys } from './assets/constants';
 import LocalStats from './types/LocalStats';
 import { formatDate, onlyDate } from './utils/DateUtils';
+import HelpDialog from './components/HelpDialog.vue';
 
 export default defineComponent({
   name: 'App',
@@ -116,8 +117,9 @@ export default defineComponent({
       }
     },
     showHelp() {
-      //TODO: implement
-      this.$q.notify('Ainda não implementado');
+      this.$q.dialog({
+        component: HelpDialog,
+      });
     },
     showStats() {
       this.$q.dialog({
