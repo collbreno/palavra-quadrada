@@ -15,9 +15,7 @@
                     <local-stats-item :label="'Sequência Atual'" :value="localStats.currentStreak.toString()"/>
                     <local-stats-item :label="'Melhor Sequência'" :value="localStats.maxStreak.toString()"/>
                 </div>
-                <div class="graph">
-                    <wins-distribution-graph :localStats="localStats"/>
-                </div>
+                <wins-distribution-graph :localStats="localStats"/>
                 <q-btn 
                     flat
                     :style="{backgroundColor: '#006847'}"
@@ -120,10 +118,6 @@ export default defineComponent({
     .share-btn {
         margin: auto;
         align-self: center;
-        margin-top: 12px;
-    }
-
-    .graph {
         margin-top: 12px;
     }
 </style>

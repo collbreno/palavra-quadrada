@@ -1,27 +1,34 @@
 <template>
-    <div class="amount-row" v-for="entry in localStats.winDistribution.entries()" :key="entry">
-        <span class="amount">
-            {{entry[0]}}
-        </span>
-        <span class="label" :style="getLabelStyle(entry[1])">
-            {{entry[1]}}
-        </span>
-        <div class="bar" :style="getBarStyle(entry[1])" />
-    </div>    
-    <div class="amount-row">
-        <span class="amount">
-            X
-        </span>
-        <span class="label" :style="getLabelStyle(localStats.amountOfLosses, true)">
-            {{localStats.amountOfLosses}}
-        </span>
-        <div class="bar" :style="getBarStyle(localStats.amountOfLosses, true)" />
+    <div class="graph">
+        <div class="amount-column" v-for="entry in localStats.winDistribution.entries()" :key="entry">
+            <div class="bar" :style="getBarStyle(entry[1])" > 
+                <span class="amount-text">
+                    {{entry[1]}}
+                </span>
+            </div>
+            <span class="label">
+                {{entry[0]}}
+            </span>
+        </div>    
+        <div class="amount-column">
+            <div class="bar" :style="getBarStyle(localStats.amountOfLosses, true)" >
+                <span class="amount-text">
+                    {{localStats.amountOfLosses}}
+                </span>
+            </div>
+            <span class="label">
+                X
+            </span>
+        </div>
     </div>
 </template>
 
 <script lang="ts">
 import LocalStats from '@/types/LocalStats'
 import { defineComponent, PropType } from 'vue'
+
+const graphHeight = 200;
+const minBarHeight = 28;
 
 export default defineComponent({
     props: {
@@ -35,23 +42,19 @@ export default defineComponent({
             enabledColor: '#007AA5',
             disabledColor: '#898E8C',
             lostColor: '#D12D33',
+            graphHeight: `${graphHeight}px`,
         }
     },
     methods: {
         getBarStyle(count: number, lost = false) {
             const games = this.localStats.amountOfGames;
-            return {
-                backgroundColor: this.getLabelStyle(count, lost).backgroundColor,
-                width: `${games == 0 ? 0 : count/games*100}%`,
-            };
-        },
-        getLabelStyle(count: number, lost = false) {
+            const heightPercentage = games == 0 ? 0 : count/games;
             return {
                 backgroundColor: count == 0 ?  this.disabledColor
                     : lost ? this.lostColor : this.enabledColor,
-                borderRadius: count == 0 ? '4px' : '4px 0px 0px 4px',
-            }
-        }
+                height: `${heightPercentage*(graphHeight-minBarHeight) + minBarHeight}px`,
+            };
+        },
     }
 })
 </script>
@@ -59,26 +62,38 @@ export default defineComponent({
 <style scoped>
     .bar {
         background-color: #007AA5;
-        border-radius: 0px 4px 4px 0px;
-        width: 0%;
+        border-radius: 4px;
+        text-align: center;
+        align-items: center;
+        justify-content: flex-end;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .amount-text {
+        margin-top: 100%;
+        font-size: 14px;
+        font-weight: 600;
+        margin-bottom: 2px;
     }
 
     .label {
-        background-color: #007AA5;
-        border-radius: 4px 0px 0px 4px;
-        width: 16px;
+        width: 100%;
         text-align: center;
     }
 
-    .amount {
-        width: 20px;
-        text-align: end;
-        margin-right: 6px;
+    .amount-column {
+        display: flex;
+        flex-direction: column;
+        margin: 2px;
+        width: 26px;
     }
 
-    .amount-row {
+    .graph {
         display: flex;
         flex-direction: row;
-        margin: 2px;
+        height: v-bind(graphHeight);
+        align-items: flex-end;
+        margin-top: 6px;
     }
 </style>
