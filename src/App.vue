@@ -43,7 +43,7 @@ export default defineComponent({
         'RIMAS',
         'ATADO',
         'RASOS',
-    ]))
+    ], 1))
     const localStats = new LocalStats(localStorage, new Date());
 
     return { squareController, localStats }
@@ -52,6 +52,8 @@ export default defineComponent({
     window.addEventListener('keydown', this.keyPressHandler);
     const dayFromLocalStorage = localStorage.getItem(LSKeys.day);
     const today = formatDate(this.localStats.today);
+
+
     if (dayFromLocalStorage && dayFromLocalStorage == today) { 
       const guessesFromLS = localStorage.getItem(LSKeys.guesses);
       if (guessesFromLS) {

@@ -13,9 +13,11 @@ class SquareController {
     triesNeeded: number[][];
     keyboardData: KeyboardData;
     colorRanking: ColorRanking;
+    gameNumber: number;
 
-    constructor(correctWords: string[]) {
+    constructor(correctWords: string[], gameNumber: number) {
         this.guesses = [];
+        this.gameNumber = gameNumber;
         this.guessData = new GuessData();
         this.words = [];
         this.lettersScale = [];
