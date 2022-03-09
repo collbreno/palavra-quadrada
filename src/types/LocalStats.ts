@@ -1,6 +1,5 @@
 import { LSKeys } from '@/assets/constants';
 import { isOneDayAhead, onlyDate } from '@/utils/DateUtils';
-import { date } from 'quasar';
 
 interface LSContent {
     amountOfLosses: number,

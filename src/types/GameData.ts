@@ -7,11 +7,10 @@ import { v4 } from 'uuid'
 
 class GameData {
     private _square: SquareController | undefined;
-    private localStats: LocalStats;
+    localStats: LocalStats;
 
     constructor() {
         this.localStats = new LocalStats(localStorage, new Date());
-        this.initSquare();
     }
 
     get square(): SquareController {
@@ -104,6 +103,46 @@ class GameData {
         }
         else {
             return [];
+        }
+    }
+
+    private getUidFromLS(): string {
+        const str = localStorage.getItem(LSKeys.uid);
+        if (str) {
+            return str;
+        }
+        else {
+            throw Error('Local Storage does not have uid.');
+        }
+    }
+
+    addLetter(letter: string) {
+        this.square.addLetter(letter);
+    }
+
+    removeLetter() {
+        this.square.removeLetter();
+    }
+
+    async submit() {
+        const lastGuess = await this.square.submit();
+        if (lastGuess) {
+            localStorage.setItem(
+                LSKeys.guesses,
+                JSON.stringify(this.square.guesses)
+            );
+        }
+        if (this.square.isFinished) {
+            sendGuessesToFirestore({
+                date: new Date(this.localStats.today),
+                guesses: this.square.guesses,
+                uid: this.getUidFromLS(),
+            });
+            if (this.square.isCorrect) {
+                this.localStats.won(this.square.guesses.length);
+            } else {
+                this.localStats.lost();
+            }
         }
     }
 }

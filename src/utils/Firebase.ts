@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, getDocFromServer, doc, DocumentSnapshot, DocumentData, setDoc } from 'firebase/firestore';
+import { getFirestore, getDocFromServer, doc, setDoc } from 'firebase/firestore';
 import { formatDate } from './DateUtils';
 
 const daysPath = 'days';

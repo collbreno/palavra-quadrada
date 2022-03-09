@@ -78,7 +78,7 @@ export default defineComponent({
         share() {
             copyToClipboard(this.squareController.colorRanking.getShareText({
                 gameUrl: 'palavra-quadrada.web.app',
-                gameDay: 0.1,
+                gameNumber: this.squareController.gameNumber,
                 triesNeeded: this.squareController.triesNeeded,
             }))
                 .then(() => this.$q.notify('Texto copiado'))

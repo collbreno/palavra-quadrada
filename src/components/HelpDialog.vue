@@ -28,7 +28,6 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { QBtn, QCard, QDialog, QSeparator, useDialogPluginComponent, QCardSection } from 'quasar'
-import LetterTile from './LetterTile.vue';
 
 export default defineComponent({
     components: {
