@@ -1,25 +1,55 @@
 <template>
-    <q-dialog @hide="onDialogHide" ref="dialogRef">
+    <q-dialog no-backdrop-dismiss no-esc-dismiss
+        @hide="onDialogHide" ref="dialogRef">
         <q-card class="q-dialog-plugin">
             <div class="title">
                 <span class="title-text">
                     Bem Vindo!
                 </span>
-                <q-btn @click="hide" flat icon="close"/>
             </div>
             <div class="content">
-                <q-card-section>
+                <q-card-section class="section">
                     <span>
                         Adivinhe as 5 palavras horizontais em até 15 tentativas. <br />
                         Depois de cada tentativa, o quadrado mostra o quão perto você está.
                     </span>
                 </q-card-section>
                 <q-separator />
-                <q-card-section>
-                <span>
-                    O quadrado
-                </span>
+                <q-card-section class="section">
+                    <span class="section-title">
+                        O quadrado
+                    </span>
+                    <q-img class="img-square" src="@/assets/images/tutorial_square.png"/>
+                    <span>
+                        As 5 palavras verticais também são palavras válidas e podem servir para ajudar
+                        a adivinhar as 5 palavras horizontais.
+                    </span>
                 </q-card-section>
+                <q-separator />
+                <q-card-section class="section">
+                    <span class="section-title">
+                        Chutando
+                    </span>
+                    <q-img class="img-guessing" src="@/assets/images/tutorial_guessing.png"/>
+                </q-card-section>
+                <q-separator />
+                <q-card-section class="section">
+                    <span class="section-title">
+                        Palavra horizontal
+                    </span>
+                    <q-img class="img-row" src="@/assets/images/tutorial_row.png"/>
+                </q-card-section>
+                <q-separator />
+                <q-card-section class="section">
+                    <span class="section-title">
+                        Cores do teclado
+                    </span>
+                    <q-img class="img-keyboard" src="@/assets/images/tutorial_keyboard.png"/>
+                </q-card-section>
+                <q-separator />
+                <q-card-actions class="actions" align="right">
+                    <q-btn @click="hide" flat label="Ok"/>
+                </q-card-actions>
             </div>
         </q-card>
     </q-dialog>
@@ -27,7 +57,7 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
-import { QBtn, QCard, QDialog, QSeparator, useDialogPluginComponent, QCardSection } from 'quasar'
+import { QBtn, QCard, QDialog, QSeparator, useDialogPluginComponent, QCardSection, QImg, QCardActions, } from 'quasar'
 
 export default defineComponent({
     components: {
@@ -36,6 +66,8 @@ export default defineComponent({
         QDialog, 
         QSeparator,
         QCardSection,
+        QImg,
+        QCardActions,
     },
     emits: [
         ...useDialogPluginComponent.emits,
@@ -71,7 +103,7 @@ export default defineComponent({
         display: flex;
         flex-direction: column;
         align-items: flex-start;
-        padding: 24px;
+        padding: 12px;
     }
 
     .q-separator {
@@ -80,5 +112,41 @@ export default defineComponent({
 
     .grid-container {
         display: grid;
+    }
+
+    .section {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .img-square {
+        width: 200px;
+        align-self: center;
+    }
+
+    .img-guessing {
+        width: 280px;
+        align-self: center;
+    }
+
+    .img-row {
+        width: 280px;
+        align-self: center;
+    }
+
+    .img-keyboard {
+        width: 280px;
+        align-self: center;
+    }
+
+    .section-title {
+        font-size: 17px;
+        font-weight: 700;
+        margin-bottom: 6px;
+    }
+
+    .actions {
+        width: 100%;
     }
 </style>

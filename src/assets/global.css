@@ -8,3 +8,14 @@ body {
 .letter-text {
     font-family: 'Inter';
 }
+
+::-webkit-scrollbar {
+    background: transparent;
+    width: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: grey;
+    border-radius: 4px;
+}
+

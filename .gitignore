@@ -24,3 +24,6 @@ pnpm-debug.log*
 
 # Firebase cache
 .firebase
+
+# Photoshop files
+*.psd
