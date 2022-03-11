@@ -23,6 +23,7 @@ import DailyStatsDialog from './DailyStatsDialog.vue';
 import HelpDialog from './HelpDialog.vue';
 import validLetters from '@/assets/validLetters';
 import GuessesDialog from './GuessesDialog.vue';
+import { LSKeys } from '@/assets/constants';
 
 export default defineComponent({
   components: { 
@@ -41,6 +42,7 @@ export default defineComponent({
     if (this.gameData.square.isFinished) {
       this.showStats();
     }
+    this.showHelpIfNecessary();
   },
   methods: {
     addLetter(letter: string) {
@@ -96,6 +98,12 @@ export default defineComponent({
       //TODO: implement
       this.$q.notify('Ainda não implementado');
     },
+    showHelpIfNecessary() {
+      const hasSeenHelp = localStorage.getItem(LSKeys.hasSeenHelp);
+      if (!hasSeenHelp || !JSON.parse(hasSeenHelp)) {
+        this.showHelp();
+      }
+    }
   },
 
 })

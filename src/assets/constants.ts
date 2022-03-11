@@ -7,4 +7,5 @@ export const LSKeys = {
     correctWords: 'correct words',
     gameNumber: 'game number',
     uid: 'uid',
+    hasSeenHelp: 'has seen help',
 }

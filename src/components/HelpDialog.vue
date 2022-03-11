@@ -11,7 +11,8 @@
                 <q-card-section class="section">
                     <span>
                         Adivinhe as 5 palavras horizontais em até 15 tentativas. <br />
-                        Depois de cada tentativa, o quadrado mostra o quão perto você está.
+                        Depois de cada tentativa, o quadrado mostra o quão perto você está
+                        de finalizar o jogo.
                     </span>
                 </q-card-section>
                 <q-separator />
@@ -47,9 +48,14 @@
                     <q-img class="img-keyboard" src="@/assets/images/tutorial_keyboard.png"/>
                 </q-card-section>
                 <q-separator />
-                <q-card-actions class="actions" align="right">
-                    <q-btn @click="hide" flat label="Ok"/>
-                </q-card-actions>
+                <q-card-section class="section">
+                    <span class="section-title">
+                        Boa Sorte!
+                    </span>
+                    <q-card-actions class="actions" align="right">
+                        <q-btn @click="hide" flat label="Ok"/>
+                    </q-card-actions>
+                </q-card-section>
             </div>
         </q-card>
     </q-dialog>
@@ -58,6 +64,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import { QBtn, QCard, QDialog, QSeparator, useDialogPluginComponent, QCardSection, QImg, QCardActions, } from 'quasar'
+import { LSKeys } from '@/assets/constants';
 
 export default defineComponent({
     components: {
@@ -79,6 +86,7 @@ export default defineComponent({
     methods: {
         hide() {
             this.dialogRef?.hide();
+            localStorage.setItem(LSKeys.hasSeenHelp, JSON.stringify(true));
         }
     }
 })
