@@ -13,7 +13,8 @@
                 :style="{backgroundColor: keyboardData.getColor(letter)}">
                 {{letter}}
             </q-btn>
-            <q-btn flat class="keyboard-btn back-btn" @click="$emit('onBackPressed')">
+            <q-btn flat class="keyboard-btn back-btn" @click="$emit('onBackPressed')"
+                :style="{backgroundColor: btnColor}">
                 <q-icon name="backspace"/>
             </q-btn>
         </div>
@@ -23,7 +24,8 @@
                 :style="{backgroundColor: keyboardData.getColor(letter)}">
                 {{letter}}
             </q-btn>
-            <q-btn flat class="keyboard-btn enter-btn" @click="$emit('onEnterPressed')" >
+            <q-btn flat class="keyboard-btn enter-btn" @click="$emit('onEnterPressed')" 
+                :style="{backgroundColor: btnColor}">
                 <q-icon name="keyboard_return"/>
             </q-btn>
         </div>
@@ -87,7 +89,6 @@ export default defineComponent({
     .keyboard-btn {
         padding: 0px;
         margin: 0.5px;
-        background: v-bind(btnColor);
         color: white;
         border-radius: 2px;
         cursor: pointer;
