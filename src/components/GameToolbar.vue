@@ -1,5 +1,10 @@
 <template>
-    <q-toolbar class="bg-black text-white">
+    <q-toolbar class="bg-black text-white toolbar">
+        <div class="beta-label">
+            <span class="beta-label-text">
+                Beta
+            </span>
+        </div>
         <q-toolbar-title>
             Palavra Quadrada
         </q-toolbar-title>    
@@ -33,3 +38,26 @@ export default defineComponent({
     ],
 })
 </script>
+
+<style scoped>
+    .beta-label {
+        background-color: rgb(175,30,45);
+        position: absolute;
+        width: 120px;
+        top: 15px;
+        left: -30px;
+        transform: rotateZ(-45deg);
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    .beta-label-text {
+        font-weight: 700;
+        align-self: center;
+    }
+
+    .toolbar {
+        overflow: hidden;
+    }
+</style>
