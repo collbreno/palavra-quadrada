@@ -73,7 +73,9 @@ class GameData {
         localStorage.setItem(LSKeys.correctWords, JSON.stringify(correctWords));
         localStorage.setItem(LSKeys.gameNumber, JSON.stringify(gameNumber));
         localStorage.removeItem(LSKeys.guesses);
-        localStorage.setItem(LSKeys.uid, v4());
+        if (!localStorage.getItem(LSKeys.uid)){
+            localStorage.setItem(LSKeys.uid, v4());
+        }
     }
 
     private getCorrectWordsFromLS(): string[] {
