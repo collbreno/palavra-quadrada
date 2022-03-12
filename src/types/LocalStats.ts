@@ -1,5 +1,5 @@
 import { LSKeys } from '@/assets/constants';
-import { isOneDayAhead, onlyDate } from '@/utils/DateUtils';
+import { isOneDayAhead, isSameDate, onlyDate } from '@/utils/DateUtils';
 
 interface LSContent {
     amountOfLosses: number,
@@ -28,7 +28,8 @@ class LocalStats {
             this._lastWon = parsed.lastWon;
             this.ls = localStorage;
             this._today = onlyDate(today);
-            this._currentStreak = this.lastWonWasYesterday ? parsed.currentStreak : 0;
+
+            this._currentStreak = this.hasToResetCurrentStreak ? 0 : parsed.currentStreak;
         } 
         else {
             this._amountOfLosses = 0;
@@ -69,15 +70,9 @@ class LocalStats {
         return this._today;   
     }
 
-    set today(value: Date) {
-        this._today = onlyDate(value);
-        if (!this.lastWonWasYesterday) {
-            this._currentStreak = 0;
-        }
-    }
-
-    private get lastWonWasYesterday(): boolean {
-        return this.lastWon != undefined && isOneDayAhead(this.lastWon, this.today);
+    private get hasToResetCurrentStreak(): boolean {
+        return this.lastWon == undefined 
+            || (!isSameDate(this.lastWon, this.today) && !isOneDayAhead(this.lastWon, this.today));
     }
 
     getAmountOfWins(amountOfGuesses: number) {
