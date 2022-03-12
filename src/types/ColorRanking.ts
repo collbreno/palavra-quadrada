@@ -30,7 +30,7 @@ class ColorRanking {
         }
     }
 
-    private getBoardRanking(triesNeeded: number[][]): string {
+    getBoardRanking(triesNeeded: number[][]): string {
         let text = '';
         for (let i = 0; i < 5; i++) {
             for (let j = 0; j < 5; j++) {

@@ -9,19 +9,26 @@
                 <q-btn @click="hide" flat icon="close"/>
             </div>
             <div class="content">
-                <div class="streaks">
-                    <local-stats-item :label="'Jogos'" :value="localStats.amountOfGames.toString()"/>
-                    <local-stats-item :label="'Vitórias'" :value="winsPercentage"/>
-                    <local-stats-item :label="'Sequência Atual'" :value="localStats.currentStreak.toString()"/>
-                    <local-stats-item :label="'Melhor Sequência'" :value="localStats.maxStreak.toString()"/>
-                </div>
-                <wins-distribution-graph :localStats="localStats"/>
-                <q-btn 
-                    flat
-                    :style="{backgroundColor: '#006847'}"
-                    v-if="showShare" class="share-btn" 
-                    @click="share"
-                    label="Compartilhar" icon="share"/>
+                <q-card-section class="section">
+                    <div class="streaks">
+                        <local-stats-item :label="'Jogos'" :value="localStats.amountOfGames.toString()"/>
+                        <local-stats-item :label="'Vitórias'" :value="winsPercentage"/>
+                        <local-stats-item :label="'Sequência Atual'" :value="localStats.currentStreak.toString()"/>
+                        <local-stats-item :label="'Melhor Sequência'" :value="localStats.maxStreak.toString()"/>
+                    </div>
+                    <wins-distribution-graph :localStats="localStats"/>
+                </q-card-section>
+                <q-separator v-if="showShare"/>
+                <q-card-section v-if="showShare" class="section-row">
+                    <q-btn 
+                        flat
+                        :style="{backgroundColor: '#006847'}"
+                        @click="share"
+                        label="Compartilhar" icon="share"/>
+                    <q-btn 
+                        flat icon="info"
+                        @click="showShareInfoDialog"/>
+                </q-card-section>
             </div>
         </q-card>
     </q-dialog>
@@ -31,9 +38,11 @@
 import SquareController from '@/types/SquareController'
 import LocalStats from '@/types/LocalStats'
 import { defineComponent, PropType } from 'vue'
-import { QDialog, QCard, QBtn, useDialogPluginComponent, copyToClipboard } from 'quasar'
+import { QDialog, QCard, QBtn, useDialogPluginComponent, copyToClipboard, QSeparator, QCardSection, } from 'quasar'
 import LocalStatsItem from './LocalStatsItem.vue';
 import WinsDistributionGraph from './WinsDistributionGraph.vue';
+import ShareInfoDialog from './ShareInfoDialog.vue';
+import { LSKeys } from '@/assets/constants';
 
 export default defineComponent({
     components: {
@@ -42,6 +51,8 @@ export default defineComponent({
         QBtn,
         LocalStatsItem,
         WinsDistributionGraph,
+        QSeparator,
+        QCardSection,
     },
     emits: [
         ...useDialogPluginComponent.emits,
@@ -83,7 +94,22 @@ export default defineComponent({
             }))
                 .then(() => this.$q.notify('Texto copiado'))
                 .catch(() => this.$q.notify('Algo deu errado'))
-        }
+            const hasSeenShareInfo = localStorage.getItem(LSKeys.hasSeenShareInfo);
+            if (!hasSeenShareInfo || !JSON.parse(hasSeenShareInfo)) {
+                this.showShareInfoDialog();
+                localStorage.setItem(LSKeys.hasSeenShareInfo, JSON.stringify(true));
+            }
+        },
+        showShareInfoDialog() {
+            this.$q.dialog({
+                component: ShareInfoDialog,
+                componentProps: {
+                    squareEmojis: this.squareController.colorRanking.getBoardRanking(
+                        this.squareController.triesNeeded,
+                    )
+                }
+            });
+        },
     }
 })
 </script>
@@ -114,10 +140,22 @@ export default defineComponent({
         flex-direction: row;
         justify-content: space-around;
     }
+    
+    .q-separator {
+        width: 100%;
+    }
+    
+    .section {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
 
-    .share-btn {
-        margin: auto;
-        align-self: center;
+    .section-row {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
         margin-top: 12px;
     }
 </style>

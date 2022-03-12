@@ -117,11 +117,7 @@ export default defineComponent({
     .q-separator {
         width: 100%;
     }
-
-    .grid-container {
-        display: grid;
-    }
-
+    
     .section {
         width: 100%;
         display: flex;

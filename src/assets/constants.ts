@@ -8,4 +8,5 @@ export const LSKeys = {
     gameNumber: 'game number',
     uid: 'uid',
     hasSeenHelp: 'has seen help',
+    hasSeenShareInfo: 'has seen share info',
 }

@@ -1920,6 +1920,7 @@ export default [
   'CLEAR',
   'CLENA',
   'CLERO',
+  'CLICA',
   'CLIII',
   'CLIMA',
   'CLINA',
