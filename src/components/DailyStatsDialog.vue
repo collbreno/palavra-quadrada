@@ -1,5 +1,5 @@
 <template>
-    <q-dialog no-backdrop-dismiss no-esc-dismiss
+    <q-dialog
         ref="dialogRef" @hide="onDialogHide">
         <q-card class="q-dialog-plugin">
             <div class="title">
