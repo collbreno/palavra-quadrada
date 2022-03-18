@@ -1,62 +1,61 @@
-import validateWord from "@/utils/WordValidator";
-import LetterData from "./LetterData";
-import LetterResult from "./LetterResult";
+import validWords from "@/assets/validWords";
+import { InvalidWordLength, WordNotInList } from "@/utils/Exceptions";
+import { removeAccents } from "@/utils/RemoveAccents";
 
 class GuessData {
-    _letters: LetterData[];
-
+    letters: string[];
 
     constructor() {
-        this._letters = [];
+        this.letters = [];
         for (let i = 0; i < 5; i++) {
-            this._letters.push(
-                new LetterData('', LetterResult.None)
-            )
+            this.letters.push('')
         }
     }
 
-    get letters(): LetterData[] {
-        return this._letters;
+    get typedWord(): string {
+        return this.letters.reduce((acc, cur) => acc+cur, '');
     }
 
-    get word(): string {
-        return this._letters.reduce((acc, cur) => acc+cur.letter, '');
-    }
-
-    get typedWordLength(): number {
-        return this.word.length;
-    }
-
-    get isCorrect(): boolean {
-        return this._letters
-            .every(x => x.result == LetterResult.CorrectSpot);
-    }
-
-    get isValidated(): boolean {
-        return this._letters
-            .every(x => x.result != LetterResult.None 
-                && x.result != LetterResult.Typing);
+    get length(): number {
+        return this.typedWord.length;
     }
 
     removeLetter(): void {
-        if (this.typedWordLength > 0) {
-            this._letters[this.typedWordLength-1] = new LetterData('', LetterResult.Typing);
+        if (this.length > 0) {
+            this.letters[this.length-1] = '';
         }
     }
 
     addLetter(letter: string): void {
-        if (this.typedWordLength < 5) {
-            this._letters[this.typedWordLength] = new LetterData(letter, LetterResult.Typing);
+        if (this.length < 5) {
+            this.letters[this.length] = letter;
         }
     }
 
-    submit(correctWord: string) {
-        this._letters = validateWord(this.word, correctWord);
+    submit(): string {
+        if (this.length < 5) {
+            throw new InvalidWordLength();
+        }
+        const index = validWords.map(x => removeAccents(x)).indexOf(this.typedWord)
+        if (index < 0) {
+            throw new WordNotInList();
+        }
+        const validWord = validWords[index];
+        this.setTypedWord(validWord);
+        return validWord;
     }
 
-    setResult(result: LetterResult) {
-        for(let i = 0; i < 5; i++) {
-            this._letters[i] = new LetterData(this.letters[i].letter, result)
+    
+    clear() {
+        for (let i = 0; i < 5; i++) {
+            this.letters[i] = '';
+        }
+    }
+
+    private setTypedWord(word: string) {
+        const list = word.split('');
+        for (let i = 0; i < 5; i++) {
+            this.letters[i] = list[i];
         }
     }
 

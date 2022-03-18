@@ -1,5 +1,5 @@
 {
-  "name": "poli-termo",
+  "name": "palavra-quadrada",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,8 +10,10 @@
   },
   "dependencies": {
     "@quasar/extras": "^1.0.0",
+    "firebase": "9.4.1",
     "mdb-vue-ui-kit": "^1.9.0",
     "quasar": "^2.0.0",
+    "uuid": "^8.3.2",
     "vue": "^3.2.13"
   },
   "devDependencies": {

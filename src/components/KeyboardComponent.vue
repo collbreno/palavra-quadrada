@@ -1,33 +1,58 @@
 <template>
     <div class="parent">
         <div class="keyboard-row">
-            <q-btn :ripple="{early: true}" class="keyboard-btn" v-for="letter in firstRowLetters"
-                @click="$emit('onLetterPressed', letter)" :key="letter">
-                <div class="keyboard-btn-content">
-                    {{letter}}
-                </div>
+            <q-btn flat class="keyboard-btn" v-for="letter in firstRowLetters"
+                @click="$emit('onLetterPressed', letter)" :key="letter"
+                :style="{backgroundColor: keyboardData.getColor(letter)}">
+                {{letter}}
             </q-btn>
         </div>
         <div class="keyboard-row">
-            <q-btn :ripple="{early: true}" class="keyboard-btn" v-for="letter in secondRowLetters"
-                @click="$emit('onLetterPressed', letter)" :key="letter">{{letter}}</q-btn>
-            <q-btn :ripple="{early: true}" class="keyboard-btn back-btn" @click="$emit('onBackPressed')" >Back</q-btn>
+            <q-btn flat class="keyboard-btn" v-for="letter in secondRowLetters"
+                @click="$emit('onLetterPressed', letter)" :key="letter"
+                :style="{backgroundColor: keyboardData.getColor(letter)}">
+                {{letter}}
+            </q-btn>
+            <q-btn flat class="keyboard-btn back-btn" @click="$emit('onBackPressed')"
+                :style="{backgroundColor: btnColor}">
+                <q-icon name="backspace"/>
+            </q-btn>
         </div>
         <div class="keyboard-row">
-            <q-btn :ripple="{early: true}" class="keyboard-btn" v-for="letter in thirdRowLetters"
-                @click="$emit('onLetterPressed', letter)" :key="letter">{{letter}}</q-btn>
-            <q-btn :ripple="{early: true}" class="keyboard-btn enter-btn" @click="$emit('onEnterPressed')" >Enter</q-btn>
+            <q-btn flat class="keyboard-btn" v-for="letter in thirdRowLetters"
+                @click="$emit('onLetterPressed', letter)" :key="letter"
+                :style="{backgroundColor: keyboardData.getColor(letter)}">
+                {{letter}}
+            </q-btn>
+            <q-btn flat class="keyboard-btn enter-btn" @click="$emit('onEnterPressed')" 
+                :style="{backgroundColor: btnColor}">
+                <q-icon name="keyboard_return"/>
+            </q-btn>
         </div>
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { QBtn } from 'quasar'
+import { defineComponent, PropType } from 'vue'
+import { QBtn, QIcon } from 'quasar'
+import KeyboardData from '@/types/KeyboardData';
+import { keyboardBtnColor } from '@/assets/colors';
 
 export default defineComponent({
+    props: {
+        keyboardData: {
+            required: true,
+            type: Object as PropType<KeyboardData>,
+        },
+    },
+    emits: [
+        'onBackPressed',
+        'onLetterPressed',
+        'onEnterPressed',
+    ],
     components: {
       QBtn,  
+      QIcon,
     },
     setup() {
         const firstRowLetters = ['Q','W','E','R','T','Y','U','I','O','P',];
@@ -40,6 +65,11 @@ export default defineComponent({
             thirdRowLetters,
         }
     },
+    computed: {
+        btnColor() {
+            return keyboardBtnColor;
+        }
+    }
 })
 </script>
 
@@ -47,34 +77,43 @@ export default defineComponent({
     .keyboard-row {
         display: flex;
         flex-direction: row;
+        width: 420px;
+    }
+
+    @media screen and (max-width: 420px){
+        .keyboard-row {
+            width: 100%;
+        }
     }
 
     .keyboard-btn {
         padding: 0px;
-        margin: 1px;
-        background: grey;
+        margin: 0.5px;
         color: white;
         border-radius: 2px;
         cursor: pointer;
-        height: 60px;
-        width: 40px;
+        flex: 1;
         border-radius: 5px;
+        height: 50px;
     }
 
 
     .back-btn {
-        width: 60px;
-        margin-left: 10px;
+        flex: 1;
+        font-size: 11px;
     }
 
     .enter-btn {
-        width: 80px;
-        margin-left: 10px;
+        flex: 3;
+        font-size: 11px;
     }
 
     .parent {
         display: flex;
         flex-direction: column;
         align-items: center;
+        width: 100%;
+        position: absolute;
+        bottom: 0;
     }
 </style>

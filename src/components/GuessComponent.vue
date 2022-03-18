@@ -1,33 +1,28 @@
 <template>
-    <div class="guess">
-        <letter-tile v-for="letterData in guessData.letters" 
-            :key="letterData" :letterData="letterData"/>
-    </div>
-
+    <letter-tile v-for="(letter, index) in letters"
+        :color="color" 
+        v-bind:key="`guess-letter-${index}`" :letter="letter"/>
 </template>
 
 <script lang="ts">
 import { defineComponent, PropType } from 'vue'
-import GuessData from '@/types/GuessData';
 import LetterTile from '@/components/LetterTile.vue';
+import { currentGuessColor } from '@/assets/colors';
 
 export default defineComponent({
     components: {
-        LetterTile
+        LetterTile,
     },
     props: {
-        guessData: {
+        letters: {
             required: true,
-            type: Object as PropType<GuessData>
+            type: Object as PropType<string[]>
+        }
+    },
+    computed: {
+        color() {
+            return currentGuessColor;
         }
     }
 })
 </script>
-
-<style scoped>
-    .guess {
-        display: flex;
-        flex-direction: row;
-        margin: 1px;
-    }
-</style>

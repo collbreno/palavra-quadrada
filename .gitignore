@@ -21,3 +21,9 @@ pnpm-debug.log*
 *.njsproj
 *.sln
 *.sw?
+
+# Firebase cache
+.firebase
+
+# Photoshop files
+*.psd
