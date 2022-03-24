@@ -2,14 +2,14 @@
     <q-dialog
         ref="dialogRef" @hide="onDialogHide">
         <q-card class="q-dialog-plugin">
-            <div class="title">
-                <span class="title-text">
+            <div class="dialog-title">
+                <span class="dialog-title-text">
                     Estatísticas
                 </span>
                 <q-btn @click="hide" flat icon="close"/>
             </div>
-            <div class="content">
-                <q-card-section class="section">
+            <div class="dialog-content">
+                <q-card-section class="dialog-section">
                     <div class="streaks">
                         <local-stats-item :label="'Jogos'" :value="localStats.amountOfGames.toString()"/>
                         <local-stats-item :label="'Vitórias'" :value="winsPercentage"/>
@@ -115,40 +115,10 @@ export default defineComponent({
 </script>
 
 <style scoped>
-    .title {
-        margin-left: 24px;
-        margin-right: 24px;
-        margin-top: 16px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-    }
-
-    .title-text {
-        font-size: 24px;
-        font-weight: 700;
-    }
-
-    .content {
-        padding: 18px;
-        display: flex;
-        flex-direction: column;
-    }
-
     .streaks {
         display: flex;
         flex-direction: row;
         justify-content: space-around;
-    }
-    
-    .q-separator {
-        width: 100%;
-    }
-    
-    .section {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
     }
 
     .section-row {

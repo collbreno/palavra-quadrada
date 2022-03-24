@@ -24,6 +24,7 @@ import HelpDialog from './HelpDialog.vue';
 import validLetters from '@/assets/validLetters';
 import GuessesDialog from './GuessesDialog.vue';
 import { LSKeys } from '@/assets/constants';
+import SettingsDialog from './SettingsDialog.vue';
 
 export default defineComponent({
   components: { 
@@ -95,8 +96,9 @@ export default defineComponent({
       });
     },
     showSettings() {
-      //TODO: implement
-      this.$q.notify('Ainda não implementado');
+      this.$q.dialog({
+        component: SettingsDialog
+      })
     },
     showHelpIfNecessary() {
       const hasSeenHelp = localStorage.getItem(LSKeys.hasSeenHelp);
