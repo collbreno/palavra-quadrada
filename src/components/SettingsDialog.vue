@@ -9,33 +9,57 @@
                 <q-btn flat @click="onDialogHide" icon="close"/>
             </div>
             <q-card-section class="card-section">
-                <span>
-                    oi
-                </span>
+                <q-list>
+                    <q-item clickable @click="toggle">
+                        <q-item-section>Modo daltônico</q-item-section>
+                        <q-item-section avatar>
+                            <q-toggle v-model="colorBlind"/>
+                        </q-item-section>
+                    </q-item>
+                    <redirect-item-section 
+                        :icon="'fab fa-twitter'"
+                        :title="'Twitter'"/>
+                    <redirect-item-section 
+                        :icon="'mail'"
+                        :title="'E-mail'"/>
+                    <redirect-item-section 
+                        :icon="'fab fa-github'"
+                        :title="'Github'"/>
+                </q-list>
             </q-card-section>
-            <q-separator />
         </q-card>
     </q-dialog>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import { QDialog, QCard, QBtn, useDialogPluginComponent, QSeparator, QCardSection, } from 'quasar'
+import { defineComponent, ref } from 'vue'
+import { QDialog, QCard, QToggle, QBtn, QIcon, useDialogPluginComponent, QSeparator, QCardSection, QList, QItem, QItemSection, } from 'quasar'
+import RedirectItemSection from './RedirectItemSection.vue';
 
 export default defineComponent({
     components: {
         QDialog, 
         QCard,
         QBtn,
-        QSeparator,
         QCardSection,
+        QItemSection, 
+        QItem,
+        QList,
+        QToggle,
+        RedirectItemSection,
     },
     emits: [
         ...useDialogPluginComponent.emits,
     ],
     setup() {
         const { dialogRef, onDialogHide } = useDialogPluginComponent();
-        return { dialogRef, onDialogHide };
+        const colorBlind = ref<boolean>(false);
+        return { dialogRef, onDialogHide, colorBlind };
     },
+    methods: {
+        toggle() {
+            this.colorBlind = !this.colorBlind;
+        }
+    }
 })
 </script>
