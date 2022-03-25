@@ -3,7 +3,7 @@ import App from './App.vue'
 import './assets/global.css'
 import { Quasar } from 'quasar'
 import quasarUserOptions from './quasar-user-options'
-import { ColorBlindDataKey } from './utils/Symbols'
+import { ColorBlindDataKey } from './utils/Injection'
 import ColorBlindData from './types/ColorBlindData'
 
 const app = createApp(App);

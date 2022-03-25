@@ -1,5 +1,5 @@
 import '@/assets/colors';
-import { correctSpotColor, keyboardBtnColor, notInSquareColor, wrongSpotColor } from '@/assets/colors';
+import { correctSpotColor, correctSpotColorBlind, keyboardBtnColor, notInSquareColor, wrongSpotColor, wrongSpotColorBlind } from '@/assets/colors';
 import { removeAccents } from '@/utils/RemoveAccents';
 
 interface IUpdateParams {
@@ -23,7 +23,7 @@ class KeyboardData {
         this.map = new Map();
     }
 
-    getColor(letter: string) {
+    getColor(letter: string, isColorBlindMode: boolean) {
         if (!this.map.has(letter)) {
             return keyboardBtnColor;
         }
@@ -33,9 +33,13 @@ class KeyboardData {
             case LetterRanking.NotInSquare:
                 return notInSquareColor;
             case LetterRanking.AllPlacedCorrectly:
-                return correctSpotColor;
+                return isColorBlindMode 
+                    ? correctSpotColorBlind
+                    : correctSpotColor;
             case LetterRanking.UnplacedLeft:
-                return wrongSpotColor;
+                return isColorBlindMode
+                    ? wrongSpotColorBlind
+                    : wrongSpotColor;
         }
     }
 

@@ -10,7 +10,9 @@
 </template>
 
 <script lang="ts">
-import { wrongSpotColor } from '@/assets/colors'
+import { wrongSpotColor, wrongSpotColorBlind } from '@/assets/colors'
+import { injectStrict } from '@/utils/Injection';
+import { ColorBlindDataKey } from '@/utils/Injection';
 import { defineComponent, PropType } from 'vue'
 
 export default defineComponent({
@@ -20,9 +22,15 @@ export default defineComponent({
             type: Object as PropType<string[]>,
         }
     },
+    setup() {
+        const colorBlindData = injectStrict(ColorBlindDataKey);
+        return { colorBlindData }
+    },
     computed: {
         color() {
-            return wrongSpotColor;
+            return this.colorBlindData.isActive
+                ? wrongSpotColorBlind
+                : wrongSpotColor;
         }
     }
 })

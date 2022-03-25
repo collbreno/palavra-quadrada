@@ -3,14 +3,14 @@
         <div class="keyboard-row">
             <q-btn flat class="keyboard-btn" v-for="letter in firstRowLetters"
                 @click="$emit('onLetterPressed', letter)" :key="letter"
-                :style="{backgroundColor: keyboardData.getColor(letter)}">
+                :style="{backgroundColor: keyboardData.getColor(letter, this.colorBlindData.isActive)}">
                 {{letter}}
             </q-btn>
         </div>
         <div class="keyboard-row">
             <q-btn flat class="keyboard-btn" v-for="letter in secondRowLetters"
                 @click="$emit('onLetterPressed', letter)" :key="letter"
-                :style="{backgroundColor: keyboardData.getColor(letter)}">
+                :style="{backgroundColor: keyboardData.getColor(letter, this.colorBlindData.isActive)}">
                 {{letter}}
             </q-btn>
             <q-btn flat class="keyboard-btn back-btn" @click="$emit('onBackPressed')"
@@ -21,7 +21,7 @@
         <div class="keyboard-row">
             <q-btn flat class="keyboard-btn" v-for="letter in thirdRowLetters"
                 @click="$emit('onLetterPressed', letter)" :key="letter"
-                :style="{backgroundColor: keyboardData.getColor(letter)}">
+                :style="{backgroundColor: keyboardData.getColor(letter, this.colorBlindData.isActive)}">
                 {{letter}}
             </q-btn>
             <q-btn flat class="keyboard-btn enter-btn" @click="$emit('onEnterPressed')" 
@@ -37,6 +37,7 @@ import { defineComponent, PropType } from 'vue'
 import { QBtn, QIcon } from 'quasar'
 import KeyboardData from '@/types/KeyboardData';
 import { keyboardBtnColor } from '@/assets/colors';
+import { ColorBlindDataKey, injectStrict } from '@/utils/Injection';
 
 export default defineComponent({
     props: {
@@ -58,11 +59,13 @@ export default defineComponent({
         const firstRowLetters = ['Q','W','E','R','T','Y','U','I','O','P',];
         const secondRowLetters = ['A','S','D','F','G','H','J','K','L',];
         const thirdRowLetters = ['Z','X','C','V','B','N','M',];
+        const colorBlindData = injectStrict(ColorBlindDataKey);
 
         return {
             firstRowLetters,
             secondRowLetters,
             thirdRowLetters,
+            colorBlindData,
         }
     },
     computed: {

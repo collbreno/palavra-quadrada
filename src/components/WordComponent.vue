@@ -19,12 +19,13 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, PropType } from 'vue'
+import { defineComponent, inject, PropType } from 'vue'
 import LetterTile from '@/components/LetterTile.vue';
 import WordData from '@/types/WordData';
 import YellowLetters from './YellowLetters.vue';
-import { correctSpotColor, notGuessedYetColor } from '@/assets/colors';
+import { correctSpotColor, correctSpotColorBlind, notGuessedYetColor } from '@/assets/colors';
 import { letterScaleAnimDuration } from '@/assets/constants';
+import { ColorBlindDataKey, injectStrict } from '@/utils/Injection';
 
 export default defineComponent({
     components: {
@@ -49,6 +50,10 @@ export default defineComponent({
             type: Boolean,
         }
     },
+    setup() {
+        const colorBlindData = injectStrict(ColorBlindDataKey);
+        return { colorBlindData };
+    },
     methods: {
         getLetter(index: number): string {
             const greenLetter = this.wordData.greenLetters[index];
@@ -57,15 +62,14 @@ export default defineComponent({
         },
         getColor(index: number): string {
             return this.wordData.greenLetters[index] == '' 
-                ? notGuessedYetColor : correctSpotColor;
+                ? notGuessedYetColor : this.correctColor;
         },
     },
     computed: {
-        defaultColor() {
-            return notGuessedYetColor;
-        }, 
         correctColor() {
-            return correctSpotColor;
+            return this.colorBlindData.isActive
+                ? correctSpotColorBlind
+                : correctSpotColor;
         },
         animduration() {
             return letterScaleAnimDuration;

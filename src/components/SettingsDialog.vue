@@ -35,7 +35,7 @@
 import { defineComponent, inject, ref } from 'vue'
 import { QDialog, QCard, QToggle, QBtn, QIcon, useDialogPluginComponent, QSeparator, QCardSection, QList, QItem, QItemSection, } from 'quasar'
 import RedirectItemSection from './RedirectItemSection.vue';
-import { ColorBlindDataKey } from '@/utils/Symbols';
+import { ColorBlindDataKey, injectStrict } from '@/utils/Injection';
 
 export default defineComponent({
     components: {
@@ -54,10 +54,7 @@ export default defineComponent({
     ],
     setup() {
         const { dialogRef, onDialogHide } = useDialogPluginComponent();
-        const colorBlindData = inject(ColorBlindDataKey);
-        if (!colorBlindData) {
-            throw new Error('ColorBlindData was not provided');
-        }
+        const colorBlindData = injectStrict(ColorBlindDataKey);
         return { dialogRef, onDialogHide, colorBlindData };
     },
     methods: {
