@@ -9,4 +9,5 @@ export const LSKeys = {
     uid: 'uid',
     hasSeenHelp: 'has seen help',
     hasSeenShareInfo: 'has seen share info',
+    colorBlind: 'is color blind on',
 }

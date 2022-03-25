@@ -13,7 +13,7 @@
                     <q-item clickable @click="toggle">
                         <q-item-section>Modo daltônico</q-item-section>
                         <q-item-section avatar>
-                            <q-toggle v-model="colorBlind"/>
+                            <q-toggle @click="toggle" :model-value="colorBlindData.isActive"/>
                         </q-item-section>
                     </q-item>
                     <redirect-item-section 
@@ -32,9 +32,10 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue'
+import { defineComponent, inject, ref } from 'vue'
 import { QDialog, QCard, QToggle, QBtn, QIcon, useDialogPluginComponent, QSeparator, QCardSection, QList, QItem, QItemSection, } from 'quasar'
 import RedirectItemSection from './RedirectItemSection.vue';
+import { ColorBlindDataKey } from '@/utils/Symbols';
 
 export default defineComponent({
     components: {
@@ -53,12 +54,15 @@ export default defineComponent({
     ],
     setup() {
         const { dialogRef, onDialogHide } = useDialogPluginComponent();
-        const colorBlind = ref<boolean>(false);
-        return { dialogRef, onDialogHide, colorBlind };
+        const colorBlindData = inject(ColorBlindDataKey);
+        if (!colorBlindData) {
+            throw new Error('ColorBlindData was not provided');
+        }
+        return { dialogRef, onDialogHide, colorBlindData };
     },
     methods: {
         toggle() {
-            this.colorBlind = !this.colorBlind;
+            this.colorBlindData.toggle();
         }
     }
 })

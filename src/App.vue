@@ -22,7 +22,7 @@ export default defineComponent({
     GameComponent,
   },
   setup() {
-    const gameData = ref<GameData>(new GameData())
+    const gameData = ref<GameData>(new GameData());
     return { gameData };
   },
   created() {
