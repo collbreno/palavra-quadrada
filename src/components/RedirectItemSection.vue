@@ -1,5 +1,5 @@
 <template>
-    <q-item clickable>
+    <q-item @click="onClick" clickable>
         <q-item-section avatar>
             <q-icon :name="icon"/>
         </q-item-section>
@@ -29,6 +29,15 @@ export default defineComponent({
         icon: {
             required: true,
             type: String,
+        },
+        redirectLink: {
+            required: true,
+            type: String,
+        }
+    },
+    methods: {
+        onClick() {
+            open(this.redirectLink);
         }
     }
 })

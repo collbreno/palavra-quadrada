@@ -19,7 +19,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, inject, PropType } from 'vue'
+import { defineComponent, PropType } from 'vue'
 import LetterTile from '@/components/LetterTile.vue';
 import WordData from '@/types/WordData';
 import YellowLetters from './YellowLetters.vue';
