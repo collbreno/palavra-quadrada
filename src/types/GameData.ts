@@ -68,7 +68,7 @@ class GameData {
             && localStorage.getItem(LSKeys.gameNumber);
     }
 
-    private updateLocalStorage(today: Date, correctWords: string[], gameNumber: number) {
+    private updateLocalStorage(today: Date, correctWords: string[], gameNumber: string) {
         localStorage.setItem(LSKeys.day, formatDate(today));
         localStorage.setItem(LSKeys.correctWords, JSON.stringify(correctWords));
         localStorage.setItem(LSKeys.gameNumber, JSON.stringify(gameNumber));
@@ -88,7 +88,7 @@ class GameData {
         }
     }
 
-    private getGameNumberFromLS(): number {
+    private getGameNumberFromLS(): string {
         const str = localStorage.getItem(LSKeys.gameNumber);
         if (str) {
             return JSON.parse(str);

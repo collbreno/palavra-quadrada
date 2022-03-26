@@ -7,7 +7,7 @@ const playsPath = 'plays';
 
 interface DocumentDayData {
     correctWords: string[];
-    gameNumber: number;
+    gameNumber: string;
 }
 
 interface SetGuessesParam {

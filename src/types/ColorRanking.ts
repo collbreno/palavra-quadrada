@@ -6,7 +6,7 @@ const blackEmoji = '⬛'
 interface IGetShareTextParam {
     triesNeeded: number[][];
     gameUrl: string;
-    gameNumber: number;
+    gameNumber: string;
 }
 
 class ColorRanking {
@@ -54,7 +54,7 @@ class ColorRanking {
     getShareText(param: IGetShareTextParam): string {
         return `${param.gameUrl} #${param.gameNumber}: ${this.getMax(param.triesNeeded)}/${this.maxAllowed}\n`
          + `\n${this.getBoardRanking(param.triesNeeded)}\n`
-         + `<6:${greenEmoji}  <11:${yellowEmoji}  <16${orangeEmoji}`;
+         + `<6:${greenEmoji}  <11:${yellowEmoji}  <16:${orangeEmoji}`;
     }
 }
 
